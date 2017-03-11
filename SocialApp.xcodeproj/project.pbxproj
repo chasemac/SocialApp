@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E37C1F91E739529005DFC5F /* FancyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E37C1F81E739529005DFC5F /* FancyView.swift */; };
+		0E37C1FC1E73963D005DFC5F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E37C1FB1E73963D005DFC5F /* Constants.swift */; };
+		0E37C1FE1E739D30005DFC5F /* RoundBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E37C1FD1E739D30005DFC5F /* RoundBtn.swift */; };
+		0E37C2001E7461AA005DFC5F /* FancyField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E37C1FF1E7461AA005DFC5F /* FancyField.swift */; };
+		0E37C2021E7462E2005DFC5F /* FancyBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E37C2011E7462E2005DFC5F /* FancyBtn.swift */; };
 		0E75CFFB1E7250F5001F5DB1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E75CFFA1E7250F5001F5DB1 /* AppDelegate.swift */; };
 		0E75CFFD1E7250F5001F5DB1 /* SignInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E75CFFC1E7250F5001F5DB1 /* SignInVC.swift */; };
 		0E75D0001E7250F5001F5DB1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E75CFFE1E7250F5001F5DB1 /* Main.storyboard */; };
@@ -17,6 +22,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0E37C1F81E739529005DFC5F /* FancyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FancyView.swift; sourceTree = "<group>"; };
+		0E37C1FB1E73963D005DFC5F /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		0E37C1FD1E739D30005DFC5F /* RoundBtn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundBtn.swift; sourceTree = "<group>"; };
+		0E37C1FF1E7461AA005DFC5F /* FancyField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FancyField.swift; sourceTree = "<group>"; };
+		0E37C2011E7462E2005DFC5F /* FancyBtn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FancyBtn.swift; sourceTree = "<group>"; };
 		0E75CFF71E7250F5001F5DB1 /* SocialApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SocialApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E75CFFA1E7250F5001F5DB1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0E75CFFC1E7250F5001F5DB1 /* SignInVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInVC.swift; sourceTree = "<group>"; };
@@ -52,6 +62,10 @@
 		0E1BE4AE1E7253D5000D3F8D /* View */ = {
 			isa = PBXGroup;
 			children = (
+				0E37C1F81E739529005DFC5F /* FancyView.swift */,
+				0E37C1FD1E739D30005DFC5F /* RoundBtn.swift */,
+				0E37C1FF1E7461AA005DFC5F /* FancyField.swift */,
+				0E37C2011E7462E2005DFC5F /* FancyBtn.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -62,6 +76,14 @@
 				0E75CFFC1E7250F5001F5DB1 /* SignInVC.swift */,
 			);
 			name = Controller;
+			sourceTree = "<group>";
+		};
+		0E37C1FA1E73962D005DFC5F /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				0E37C1FB1E73963D005DFC5F /* Constants.swift */,
+			);
+			name = Utilities;
 			sourceTree = "<group>";
 		};
 		0E75CFEE1E7250F5001F5DB1 = {
@@ -85,6 +107,7 @@
 		0E75CFF91E7250F5001F5DB1 /* SocialApp */ = {
 			isa = PBXGroup;
 			children = (
+				0E37C1FA1E73962D005DFC5F /* Utilities */,
 				0E1BE4AF1E7253D9000D3F8D /* Controller */,
 				0E1BE4AE1E7253D5000D3F8D /* View */,
 				0E1BE4AD1E7253CF000D3F8D /* Model */,
@@ -240,8 +263,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0E37C2001E7461AA005DFC5F /* FancyField.swift in Sources */,
 				0E75CFFD1E7250F5001F5DB1 /* SignInVC.swift in Sources */,
+				0E37C1FE1E739D30005DFC5F /* RoundBtn.swift in Sources */,
 				0E75CFFB1E7250F5001F5DB1 /* AppDelegate.swift in Sources */,
+				0E37C1F91E739529005DFC5F /* FancyView.swift in Sources */,
+				0E37C1FC1E73963D005DFC5F /* Constants.swift in Sources */,
+				0E37C2021E7462E2005DFC5F /* FancyBtn.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
