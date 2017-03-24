@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0E051A801E84E7C800D5A4C4 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E051A7F1E84E7C800D5A4C4 /* DataService.swift */; };
+		0E051A821E85CB3700D5A4C4 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E051A811E85CB3700D5A4C4 /* Post.swift */; };
 		0E37C1F91E739529005DFC5F /* FancyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E37C1F81E739529005DFC5F /* FancyView.swift */; };
 		0E37C1FC1E73963D005DFC5F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E37C1FB1E73963D005DFC5F /* Constants.swift */; };
 		0E37C1FE1E739D30005DFC5F /* RoundBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E37C1FD1E739D30005DFC5F /* RoundBtn.swift */; };
@@ -27,6 +28,7 @@
 
 /* Begin PBXFileReference section */
 		0E051A7F1E84E7C800D5A4C4 /* DataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
+		0E051A811E85CB3700D5A4C4 /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		0E37C1F81E739529005DFC5F /* FancyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FancyView.swift; sourceTree = "<group>"; };
 		0E37C1FB1E73963D005DFC5F /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		0E37C1FD1E739D30005DFC5F /* RoundBtn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundBtn.swift; sourceTree = "<group>"; };
@@ -71,6 +73,7 @@
 		0E1BE4AD1E7253CF000D3F8D /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				0E051A811E85CB3700D5A4C4 /* Post.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -287,6 +290,7 @@
 				0ECAF6DF1E84473900083376 /* CircleView.swift in Sources */,
 				0E37C2001E7461AA005DFC5F /* FancyField.swift in Sources */,
 				0E75CFFD1E7250F5001F5DB1 /* SignInVC.swift in Sources */,
+				0E051A821E85CB3700D5A4C4 /* Post.swift in Sources */,
 				0E37C1FE1E739D30005DFC5F /* RoundBtn.swift in Sources */,
 				0E75CFFB1E7250F5001F5DB1 /* AppDelegate.swift in Sources */,
 				0E051A801E84E7C800D5A4C4 /* DataService.swift in Sources */,
