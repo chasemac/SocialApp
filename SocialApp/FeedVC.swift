@@ -14,11 +14,15 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
     
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-tableView.delegate = self
+        tableView.delegate = self
         tableView.dataSource = self
+        
+        DataService.ds.REF_POSTS.observe(.value, with: { (snapshot) in
+            print(snapshot.value)
+        })
         
     }
     
@@ -35,13 +39,13 @@ tableView.delegate = self
         
     }
     
-
+    
     @IBAction func signOutTapped(_ sender: Any) {
         let keychainResult = KeychainWrapper.removeObjectForKey(KEY_UID)
         print("CHASE: ID Removed from keychain \(keychainResult)")
         try! FIRAuth.auth()?.signOut()
         performSegue(withIdentifier: "goToSignIn", sender: nil)
     }
-
-
+    
+    
 }
