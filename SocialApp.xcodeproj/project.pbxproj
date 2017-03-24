@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E051A801E84E7C800D5A4C4 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E051A7F1E84E7C800D5A4C4 /* DataService.swift */; };
 		0E37C1F91E739529005DFC5F /* FancyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E37C1F81E739529005DFC5F /* FancyView.swift */; };
 		0E37C1FC1E73963D005DFC5F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E37C1FB1E73963D005DFC5F /* Constants.swift */; };
 		0E37C1FE1E739D30005DFC5F /* RoundBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E37C1FD1E739D30005DFC5F /* RoundBtn.swift */; };
@@ -25,6 +26,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0E051A7F1E84E7C800D5A4C4 /* DataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		0E37C1F81E739529005DFC5F /* FancyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FancyView.swift; sourceTree = "<group>"; };
 		0E37C1FB1E73963D005DFC5F /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		0E37C1FD1E739D30005DFC5F /* RoundBtn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundBtn.swift; sourceTree = "<group>"; };
@@ -61,6 +63,7 @@
 		0E051A7E1E84E69E00D5A4C4 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				0E051A7F1E84E7C800D5A4C4 /* DataService.swift */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -286,6 +289,7 @@
 				0E75CFFD1E7250F5001F5DB1 /* SignInVC.swift in Sources */,
 				0E37C1FE1E739D30005DFC5F /* RoundBtn.swift in Sources */,
 				0E75CFFB1E7250F5001F5DB1 /* AppDelegate.swift in Sources */,
+				0E051A801E84E7C800D5A4C4 /* DataService.swift in Sources */,
 				0ECAF6DD1E834AB500083376 /* FeedVC.swift in Sources */,
 				0E37C1F91E739529005DFC5F /* FancyView.swift in Sources */,
 				0E37C1FC1E73963D005DFC5F /* Constants.swift in Sources */,

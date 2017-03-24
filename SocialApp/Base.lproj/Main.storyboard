@@ -153,12 +153,16 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ffu-8S-CPk" customClass="FancyView" customModule="SocialApp" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="65"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sign-out" translatesAutoresizingMaskIntoConstraints="NO" id="g02-gF-u7I">
+                                    <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sign-out" translatesAutoresizingMaskIntoConstraints="NO" id="g02-gF-u7I">
                                         <rect key="frame" x="16" y="20" width="45" height="38"/>
+                                        <gestureRecognizers/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="38" id="6Ff-oo-TyW"/>
                                             <constraint firstAttribute="width" constant="45" id="o5h-t3-oxh"/>
                                         </constraints>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="ga2-1G-K1f" appends="YES" id="779-zA-iHz"/>
+                                        </connections>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Feed" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vPh-VT-A5U">
                                         <rect key="frame" x="127" y="25" width="121" height="28"/>
@@ -223,7 +227,8 @@
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="387" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="RLH-Ki-Sa4">
                                 <rect key="frame" x="0.0" y="154" width="375" height="513"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.81176470590000005" green="0.84705882349999995" blue="0.86274509799999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="sectionIndexBackgroundColor" red="0.81176470590000005" green="0.84705882349999995" blue="0.86274509799999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PostCell" rowHeight="387" id="set-ln-wLK" customClass="PostCell" customModule="SocialApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="387"/>
@@ -347,6 +352,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cFl-hh-hV3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="ga2-1G-K1f">
+                    <connections>
+                        <action selector="signOutTapped:" destination="Par-e8-wTJ" id="CDE-WD-L8d"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="904.79999999999995" y="123.68815592203899"/>
         </scene>
