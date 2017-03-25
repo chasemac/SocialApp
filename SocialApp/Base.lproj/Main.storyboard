@@ -216,6 +216,9 @@
                                                     <constraint firstAttribute="width" constant="49" id="XCb-Gh-Cgp"/>
                                                 </constraints>
                                                 <state key="normal" image="add-post"/>
+                                                <connections>
+                                                    <action selector="postBtnTapped:" destination="Par-e8-wTJ" eventType="touchUpInside" id="Kuf-gs-9Bk"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
@@ -245,7 +248,7 @@
                                                     <rect key="frame" x="16" y="8" width="343" height="371"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="NyT-4C-JLq">
-                                                            <rect key="frame" x="8" y="8" width="327" height="326.5"/>
+                                                            <rect key="frame" x="8" y="8" width="327" height="326"/>
                                                             <subviews>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8yu-51-LaC">
                                                                     <rect key="frame" x="0.0" y="0.0" width="327" height="60"/>
@@ -273,10 +276,10 @@
                                                                     </subviews>
                                                                 </stackView>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="HPE-34-FhW">
-                                                                    <rect key="frame" x="0.0" y="64" width="327" height="208.5"/>
+                                                                    <rect key="frame" x="0.0" y="64" width="327" height="208"/>
                                                                 </imageView>
                                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Kay-p6-ieo">
-                                                                    <rect key="frame" x="0.0" y="276.5" width="327" height="50"/>
+                                                                    <rect key="frame" x="0.0" y="276" width="327" height="50"/>
                                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="WG5-lm-GFJ"/>
@@ -289,16 +292,16 @@
                                                             </subviews>
                                                         </stackView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="gaq-nc-VCg">
-                                                            <rect key="frame" x="263" y="342.5" width="72" height="20.5"/>
+                                                            <rect key="frame" x="262" y="342" width="73" height="21"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Likes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xo2-cG-Ada">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="33.5" height="20.5"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="34" height="21"/>
                                                                     <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="15"/>
                                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.56999999999999995" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8888" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Yl-bc-pNj">
-                                                                    <rect key="frame" x="38.5" y="0.0" width="33.5" height="20.5"/>
+                                                                    <rect key="frame" x="39" y="0.0" width="34" height="21"/>
                                                                     <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="15"/>
                                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.56999999999999995" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
@@ -351,6 +354,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="captionField" destination="kqF-1H-3sA" id="Z3F-AO-M0p"/>
                         <outlet property="imageAdd" destination="GFw-yg-PmX" id="RMg-Dd-mzT"/>
                         <outlet property="tableView" destination="RLH-Ki-Sa4" id="cMM-c7-CYr"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="goToSignIn" id="KBM-JK-sqd"/>
@@ -378,7 +382,7 @@
         <image name="empty-heart" width="70" height="70"/>
         <image name="f" width="352" height="328"/>
         <image name="placeholder" width="567" height="312"/>
-        <image name="profile" width="113" height="155"/>
+        <image name="profile" width="600" height="600"/>
         <image name="sign-out" width="92" height="65"/>
     </resources>
 </document>
