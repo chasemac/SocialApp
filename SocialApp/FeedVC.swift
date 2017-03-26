@@ -16,14 +16,16 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
     @IBOutlet weak var imageAdd: CircleView!
     @IBOutlet weak var captionField: FancyField!
     
-    static var imageCache: NSCache<NSString, UIImage> = NSCache()
-    var imageSelected = false
-    
     var posts = [Post]()
     var imagePicker: UIImagePickerController!
     
+    static var imageCache: NSCache<NSString, UIImage> = NSCache()
+    var imageSelected = false
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         tableView.delegate = self
         tableView.dataSource = self
         
@@ -32,10 +34,13 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
         imagePicker.delegate = self
         
         DataService.ds.REF_POSTS.observe(.value, with: { (snapshot) in
+            
+            self.posts = []
+            
             if let snapshot = snapshot.children.allObjects as? [FIRDataSnapshot] {
                 for snap in snapshot {
                     print("SNAP: \(snap)")
-                    if let postDict = snap.value as?Dictionary<String, AnyObject> {
+                    if let postDict = snap.value as? Dictionary<String, AnyObject> {
                         let key = snap.key
                         let post = Post(postKey: key, postData: postDict)
                         self.posts.append(post)
@@ -62,14 +67,12 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell") as? PostCell {
             
-            if let img = FeedVC.imageCache.object(forKey: post.imageURL as NSString) {
+            if let img = FeedVC.imageCache.object(forKey: post.imageUrl as NSString) {
                 cell.configureCell(post: post, img: img)
-                return cell
             } else {
                 cell.configureCell(post: post)
-                return cell
             }
-            
+            return cell
         } else {
             return PostCell()
         }
@@ -87,9 +90,9 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
     }
     
     @IBAction func addImageTapped(_ sender: Any) {
-        
         present(imagePicker, animated: true, completion: nil)
     }
+    
     @IBAction func postBtnTapped(_ sender: Any) {
         guard let caption = captionField.text, caption != "" else {
             print("CHASE: Caption must be entered")
@@ -124,7 +127,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
     func postToFirebase(imgUrl: String) {
         let post: Dictionary<String, Any> = [
         "caption": captionField.text! as AnyObject,
-        "imgUrl": imgUrl as AnyObject,
+        "imageUrl": imgUrl as AnyObject,
         "likes": 0 as AnyObject
         ]
         

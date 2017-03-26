@@ -131,9 +131,9 @@
 			children = (
 				0E051A7E1E84E69E00D5A4C4 /* Services */,
 				0E37C1FA1E73962D005DFC5F /* Utilities */,
+				0E1BE4AD1E7253CF000D3F8D /* Model */,
 				0E1BE4AF1E7253D9000D3F8D /* Controller */,
 				0E1BE4AE1E7253D5000D3F8D /* View */,
-				0E1BE4AD1E7253CF000D3F8D /* Model */,
 				0E75CFFA1E7250F5001F5DB1 /* AppDelegate.swift */,
 				0E75CFFE1E7250F5001F5DB1 /* Main.storyboard */,
 				0E75D0011E7250F5001F5DB1 /* Assets.xcassets */,
@@ -421,6 +421,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1CEB9BB43BA64E846150D1B8 /* Pods-SocialApp.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = J2C764CY4K;
 				INFOPLIST_FILE = SocialApp/Info.plist;
@@ -435,6 +436,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 832F69B73E20A562A2C2835A /* Pods-SocialApp.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = J2C764CY4K;
 				INFOPLIST_FILE = SocialApp/Info.plist;
