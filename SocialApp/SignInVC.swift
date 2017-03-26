@@ -13,7 +13,7 @@ import Firebase
 import SwiftKeychainWrapper
 
 
-class SignInVC: UIViewController {
+class SignInVC: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var emailField: FancyField!
     @IBOutlet weak var pwdField: FancyField!
@@ -21,6 +21,8 @@ class SignInVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.emailField.delegate = self
+        self.pwdField.delegate = self
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -88,6 +90,18 @@ class SignInVC: UIViewController {
                 }
             })
         }
+    }
+    
+    //presses return key
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        emailField.resignFirstResponder()
+        pwdField.resignFirstResponder()
+        return true
+    }
+    
+    // Hide keyboard when user touches outside keyboard
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
     }
     
     func completeSignIn(id: String, userData: Dictionary<String, String>) {

@@ -10,7 +10,7 @@ import UIKit
 import SwiftKeychainWrapper
 import Firebase
 
-class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var imageAdd: CircleView!
@@ -32,6 +32,8 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
         imagePicker = UIImagePickerController()
         imagePicker.allowsEditing = true
         imagePicker.delegate = self
+        
+        self.captionField.delegate = self
         
         DataService.ds.REF_POSTS.observe(.value, with: { (snapshot) in
             
@@ -94,6 +96,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
     }
     
     @IBAction func postBtnTapped(_ sender: Any) {
+        //resignFirstResponder()
         guard let caption = captionField.text, caption != "" else {
             print("CHASE: Caption must be entered")
             return
@@ -139,7 +142,6 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
         imageAdd.image = UIImage(named: "add-image")
         
         tableView.reloadData()
-        
     }
     
     @IBAction func signOutTapped(_ sender: Any) {
@@ -147,6 +149,17 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
         print("CHASE: ID Removed from keychain \(keychainResult)")
         try! FIRAuth.auth()?.signOut()
         performSegue(withIdentifier: "goToSignIn", sender: nil)
+    }
+    
+    //presses return key
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        captionField.resignFirstResponder()
+        return true
+    }
+    
+    // Hide keyboard when user touches outside keyboard
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
     }
     
     

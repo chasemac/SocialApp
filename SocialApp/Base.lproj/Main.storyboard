@@ -87,13 +87,13 @@
                                         <rect key="frame" x="0.0" y="0.0" width="315" height="25"/>
                                         <color key="textColor" red="0.23137254901960785" green="0.34901960784313724" blue="0.59607843137254901" alpha="0.87" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="18"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wyC-8X-sPZ" customClass="FancyField" customModule="SocialApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="34" width="315" height="25"/>
                                         <color key="textColor" red="0.23137254900000001" green="0.34901960780000002" blue="0.59607843140000005" alpha="0.87" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="18"/>
-                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                        <textInputTraits key="textInputTraits" returnKeyType="go" secureTextEntry="YES"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bcY-Hv-JYu" customClass="FancyBtn" customModule="SocialApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="68" width="315" height="36"/>
@@ -206,7 +206,7 @@
                                                 <rect key="frame" x="61" y="12" width="205" height="25"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="18"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="yes" spellCheckingType="yes" returnKeyType="done"/>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aGz-zG-7ek" customClass="RoundBtn" customModule="SocialApp" customModuleProvider="target">
                                                 <rect key="frame" x="278" y="0.0" width="49" height="49"/>
@@ -235,7 +235,7 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="387" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="RLH-Ki-Sa4">
                                 <rect key="frame" x="0.0" y="154" width="375" height="513"/>
                                 <color key="backgroundColor" red="0.81176470590000005" green="0.84705882349999995" blue="0.86274509799999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <color key="sectionIndexBackgroundColor" red="0.81176470590000005" green="0.84705882349999995" blue="0.86274509799999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="sectionIndexBackgroundColor" red="0.81176470588235294" green="0.84705882352941175" blue="0.86274509803921573" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PostCell" rowHeight="387" id="set-ln-wLK" customClass="PostCell" customModule="SocialApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="387"/>
@@ -248,7 +248,7 @@
                                                     <rect key="frame" x="16" y="8" width="343" height="371"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="NyT-4C-JLq">
-                                                            <rect key="frame" x="8" y="8" width="327" height="326"/>
+                                                            <rect key="frame" x="8" y="8" width="327" height="326.5"/>
                                                             <subviews>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8yu-51-LaC">
                                                                     <rect key="frame" x="0.0" y="0.0" width="327" height="60"/>
@@ -260,9 +260,9 @@
                                                                                 <constraint firstAttribute="height" constant="60" id="mhP-5Z-r8l"/>
                                                                             </constraints>
                                                                         </imageView>
-                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MonkeyInJelly85" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UV0-PV-A3D">
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="chasemm05" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UV0-PV-A3D">
                                                                             <rect key="frame" x="60" y="0.0" width="207" height="60"/>
-                                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                            <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
                                                                             <color key="textColor" red="0.90379220247268677" green="0.25789561867713928" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
@@ -275,11 +275,11 @@
                                                                         </imageView>
                                                                     </subviews>
                                                                 </stackView>
-                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="HPE-34-FhW">
-                                                                    <rect key="frame" x="0.0" y="64" width="327" height="208"/>
+                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="unableToDownloadImage" translatesAutoresizingMaskIntoConstraints="NO" id="HPE-34-FhW">
+                                                                    <rect key="frame" x="0.0" y="64" width="327" height="208.5"/>
                                                                 </imageView>
                                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Kay-p6-ieo">
-                                                                    <rect key="frame" x="0.0" y="276" width="327" height="50"/>
+                                                                    <rect key="frame" x="0.0" y="276.5" width="327" height="50"/>
                                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="WG5-lm-GFJ"/>
@@ -292,16 +292,16 @@
                                                             </subviews>
                                                         </stackView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="gaq-nc-VCg">
-                                                            <rect key="frame" x="262" y="342" width="73" height="21"/>
+                                                            <rect key="frame" x="263" y="342.5" width="72" height="20.5"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Likes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xo2-cG-Ada">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="34" height="21"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="33.5" height="20.5"/>
                                                                     <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="15"/>
                                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.56999999999999995" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8888" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Yl-bc-pNj">
-                                                                    <rect key="frame" x="39" y="0.0" width="34" height="21"/>
+                                                                    <rect key="frame" x="38.5" y="0.0" width="33.5" height="20.5"/>
                                                                     <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="15"/>
                                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.56999999999999995" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
@@ -382,8 +382,8 @@
         <image name="devslopes-logo" width="150" height="94"/>
         <image name="empty-heart" width="70" height="70"/>
         <image name="f" width="352" height="328"/>
-        <image name="placeholder" width="567" height="312"/>
         <image name="profile" width="600" height="600"/>
         <image name="sign-out" width="92" height="65"/>
+        <image name="unableToDownloadImage" width="797" height="626"/>
     </resources>
 </document>
