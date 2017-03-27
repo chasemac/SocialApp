@@ -92,6 +92,27 @@ class SignInVC: UIViewController, UITextFieldDelegate {
         }
     }
     
+    func moveTextField(textField: UITextField, moveDistance: Int, up: Bool) {
+        let moveDuration = 0.3
+        let movement: CGFloat = CGFloat(up ? moveDistance : -moveDistance)
+        
+        UIView.beginAnimations("animateTextField", context: nil)
+        UIView.setAnimationBeginsFromCurrentState(true)
+        UIView.setAnimationDuration(moveDuration)
+        self.view.frame = self.view.frame.offsetBy(dx: 0, dy: movement)
+        UIView.commitAnimations()
+    }
+    
+    // Keyboard shows
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        moveTextField(textField: textField, moveDistance: -250, up: true)
+    }
+    
+    // Keyboard is hidden
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        moveTextField(textField: textField, moveDistance: -250, up: false)
+    }
+    
     //presses return key
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         emailField.resignFirstResponder()
