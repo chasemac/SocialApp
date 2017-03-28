@@ -98,7 +98,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITextFieldDelegate, UITabl
     }
     
     @IBAction func postBtnTapped(_ sender: Any) {
-        //resignFirstResponder()
+
         guard let caption = captionField.text, caption != "" else {
             print("CHASE: Caption must be entered")
             return
@@ -131,9 +131,9 @@ class FeedVC: UIViewController, UITableViewDelegate, UITextFieldDelegate, UITabl
     
     func postToFirebase(imgUrl: String) {
         let post: Dictionary<String, Any> = [
-        "caption": captionField.text! as AnyObject,
-        "imageUrl": imgUrl as AnyObject,
-        "likes": 0 as AnyObject
+        CAPTION_DB_STRING: captionField.text! as AnyObject,
+        IMAGEURL_DB_STRING: imgUrl as AnyObject,
+        LIKES_DB_STRING: 0 as AnyObject
         ]
         
         let firebasePost = DataService.ds.REF_POSTS.childByAutoId()

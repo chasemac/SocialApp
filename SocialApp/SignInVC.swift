@@ -18,7 +18,6 @@ class SignInVC: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var emailField: FancyField!
     @IBOutlet weak var pwdField: FancyField!
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.emailField.delegate = self
@@ -31,11 +30,6 @@ class SignInVC: UIViewController, UITextFieldDelegate {
         }
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
     @IBAction func facebookBtnTapped(_ sender: Any) {
         let facebookLogin = FBSDKLoginManager()
         facebookLogin.logIn(withReadPermissions: ["email"], from: self) { (result, error) in
@@ -46,8 +40,8 @@ class SignInVC: UIViewController, UITextFieldDelegate {
                 print("CHASE: user canceled")
             } else {
                 print("CHASE: Successfully authenticated with facebook")
-                let credecntial = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
-                self.firebaseAuth(credecntial)
+                let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
+                self.firebaseAuth(credential)
             }
         }
     }
@@ -73,6 +67,7 @@ class SignInVC: UIViewController, UITextFieldDelegate {
                     print("CHASE: EMAIL User authenticated with Firebase")
                     if let user = user {
                         let userData = ["provider": user.providerID]
+                        
                         self.completeSignIn(id: user.uid, userData: userData)
                     }
                 } else {
@@ -92,6 +87,28 @@ class SignInVC: UIViewController, UITextFieldDelegate {
         }
     }
     
+    func completeSignIn(id: String, userData: Dictionary<String, String>) {
+        
+        DataService.ds.createFirebaseDBUser(uid: id, userData: userData)
+        
+        // Save Data to keychain
+        let keychainResult = KeychainWrapper.setString(id, forKey: KEY_UID)
+        print("CHASE: Data saved to keychaise \(keychainResult)")
+        
+        // Check if Username exist
+        DataService.ds.REF_USERS.child(id).observeSingleEvent(of: .value, with: { (snapshot) in
+            if snapshot.hasChild(USERNAME_DB_STRING) {
+                print("we're good")
+                self.performSegue(withIdentifier: "goToFeed", sender: nil)
+            } else {
+                print("username doesn't exist")
+                self.performSegue(withIdentifier: "createProfile", sender: nil)
+            }
+        })
+    }
+    
+    // MARK: KEYBOARD FUNCTIONS
+    // Move View
     func moveTextField(textField: UITextField, moveDistance: Int, up: Bool) {
         let moveDuration = 0.3
         let movement: CGFloat = CGFloat(up ? moveDistance : -moveDistance)
@@ -123,13 +140,6 @@ class SignInVC: UIViewController, UITextFieldDelegate {
     // Hide keyboard when user touches outside keyboard
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
-    }
-    
-    func completeSignIn(id: String, userData: Dictionary<String, String>) {
-        DataService.ds.createFirebaseDBUser(uid: id, userData: userData)
-        let keychainResult = KeychainWrapper.setString(id, forKey: KEY_UID)
-        print("CHASE: Data saved to keychaise \(keychainResult)")
-        performSegue(withIdentifier: "goToFeed", sender: nil)
     }
 }
 

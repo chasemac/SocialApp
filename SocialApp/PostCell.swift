@@ -30,15 +30,18 @@ class PostCell: UITableViewCell {
         likeImg.isUserInteractionEnabled = true
     }
     
+    
     func configureCell(post: Post, img: UIImage? = nil) {
         self.post = post
-        likesRef = DataService.ds.REF_USER_CURRENT.child("likes").child(post.postKey)
+        likesRef = DataService.ds.REF_USER_CURRENT.child(LIKES_DB_STRING).child(post.postKey)
         
         self.caption.text = post.caption
         self.likesLbl.text = "\(post.likes)"
         
         if img != nil {
             self.postImg.image = img
+            
+            
         } else {
             let ref = FIRStorage.storage().reference(forURL: post.imageUrl)
             ref.data(withMaxSize: 2 * 1024 * 1024, completion: { (data, error) in
