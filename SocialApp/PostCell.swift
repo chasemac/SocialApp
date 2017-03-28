@@ -20,6 +20,10 @@ class PostCell: UITableViewCell {
     
     var post: Post!
     var likesRef: FIRDatabaseReference!
+    var profileImageUrlRef: FIRDatabaseReference!
+    var usernameRef: FIRDatabaseReference!
+    
+    var users = [User]()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -34,9 +38,32 @@ class PostCell: UITableViewCell {
     func configureCell(post: Post, img: UIImage? = nil) {
         self.post = post
         likesRef = DataService.ds.REF_USER_CURRENT.child(LIKES_DB_STRING).child(post.postKey)
+        usernameRef = DataService.ds.REF_USERS.child(post.userUID).child(USERNAME_DB_STRING)
+        profileImageUrlRef = DataService.ds.REF_USERS.child(post.userUID).child(PROFILE_IMAGEURL_DB_STRING)
+        
+        usernameRef.observeSingleEvent(of: .value, with: { (snapshot) in
+            if let _ = snapshot.value as? NSNull {
+                self.usernameLbl.text = post.userUID
+            } else {
+                self.usernameLbl.text = snapshot.value as? String
+            }
+        })
+        
+        profileImageUrlRef.observeSingleEvent(of: .value, with: { (snapshot) in
+            if let _ = snapshot.value as? NSNull {
+                print("something went wrong \(snapshot)")
+            } else {
+                print(snapshot)
+            }
+        })
+        
         
         self.caption.text = post.caption
         self.likesLbl.text = "\(post.likes)"
+
+    
+        self.usernameLbl.text = post.userUID
+        
         
         if img != nil {
             self.postImg.image = img

@@ -43,7 +43,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITextFieldDelegate, UITabl
             
             if let snapshot = snapshot.children.allObjects as? [FIRDataSnapshot] {
                 for snap in snapshot {
-                    print("SNAP: \(snap)")
+     //               print("SNAP: \(snap)")
                     if let postDict = snap.value as? Dictionary<String, AnyObject> {
                         let key = snap.key
                         let post = Post(postKey: key, postData: postDict)
@@ -130,10 +130,12 @@ class FeedVC: UIViewController, UITableViewDelegate, UITextFieldDelegate, UITabl
     }
     
     func postToFirebase(imgUrl: String) {
+        let user = KeychainWrapper.stringForKey(KEY_UID)!
         let post: Dictionary<String, Any> = [
         CAPTION_DB_STRING: captionField.text! as AnyObject,
         IMAGEURL_DB_STRING: imgUrl as AnyObject,
-        LIKES_DB_STRING: 0 as AnyObject
+        LIKES_DB_STRING: 0 as AnyObject,
+        USER_DB_STRING: user as AnyObject
         ]
         
         let firebasePost = DataService.ds.REF_POSTS.childByAutoId()
