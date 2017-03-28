@@ -21,6 +21,7 @@ let CAPTION_DB_STRING = "caption"
 let IMAGEURL_DB_STRING = "imageUrl"
 let LIKES_DB_STRING = "likes"
 let USER_DB_STRING = "user"
+let POSTED_DATE = "postedDate"
 
 // Users
 let USERNAME_DB_STRING = "username"

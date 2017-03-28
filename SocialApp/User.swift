@@ -5,7 +5,7 @@
 //  Created by Chase McElroy on 3/28/17.
 //  Copyright © 2017 Chase McElroy. All rights reserved.
 //
-
+/*
 import Foundation
 import Firebase
 class User {
@@ -75,3 +75,4 @@ class User {
     
     
 }
+ */

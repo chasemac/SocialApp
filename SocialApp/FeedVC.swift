@@ -37,7 +37,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITextFieldDelegate, UITabl
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(FeedVC.dismissKeyboard))
         view.addGestureRecognizer(tap)
         
-        DataService.ds.REF_POSTS.observe(.value, with: { (snapshot) in
+        DataService.ds.REF_POSTS.queryOrdered(byChild: POSTED_DATE).observe(.value, with: { (snapshot) in
             
             self.posts = []
             
@@ -47,7 +47,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITextFieldDelegate, UITabl
                     if let postDict = snap.value as? Dictionary<String, AnyObject> {
                         let key = snap.key
                         let post = Post(postKey: key, postData: postDict)
-                        self.posts.append(post)
+                        self.posts.insert(post, at: 0)
                     }
                 }
             }
@@ -127,6 +127,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITextFieldDelegate, UITabl
                 }
             }
         }
+        dismissKeyboard()
     }
     
     func postToFirebase(imgUrl: String) {
@@ -135,7 +136,9 @@ class FeedVC: UIViewController, UITableViewDelegate, UITextFieldDelegate, UITabl
         CAPTION_DB_STRING: captionField.text! as AnyObject,
         IMAGEURL_DB_STRING: imgUrl as AnyObject,
         LIKES_DB_STRING: 0 as AnyObject,
-        USER_DB_STRING: user as AnyObject
+        USER_DB_STRING: user as AnyObject,
+        POSTED_DATE: FIRServerValue.timestamp() as AnyObject
+            
         ]
         
         let firebasePost = DataService.ds.REF_POSTS.childByAutoId()
