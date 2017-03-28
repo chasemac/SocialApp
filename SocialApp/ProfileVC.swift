@@ -74,7 +74,7 @@ class ProfileVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerD
             let metadata = FIRStorageMetadata()
             metadata.contentType = "image/jpeg"
             
-            DataService.ds.REF_POST_IMAGES.child(imgUid).put(imgData, metadata: metadata) { (metadata, error) in
+            DataService.ds.REF_PROFILE_IMAGES.child(imgUid).put(imgData, metadata: metadata) { (metadata, error) in
                 if error != nil {
                     print("CHASE: unable to upload to firebase storage")
                 } else {
@@ -92,11 +92,14 @@ class ProfileVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerD
     func postToFirebase(imgUrl: String) {
         let post: Dictionary<String, Any> = [
             NAME_DB_STRING: nameTextField.text! as AnyObject,
-            PROFIFE_IMAGEURL_DB_STRING: imgUrl as AnyObject,
+            PROFILE_IMAGEURL_DB_STRING: imgUrl as AnyObject,
             USERNAME_DB_STRING: usernameTextField.text! as AnyObject
         ]
         
+        
         let firebasePost = DataService.ds.REF_USER_CURRENT
+        
+        print("CHASE: Here is the key: --- \(firebasePost)")
         firebasePost.updateChildValues(post)
         
         nameTextField.text = ""
