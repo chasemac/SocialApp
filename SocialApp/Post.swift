@@ -16,6 +16,7 @@ class Post {
     private var _postKey: String!
     private var _postRef: FIRDatabaseReference!
     private var _userUID: String!
+    private var _postedDate: String!
 
     
     var caption: String {
@@ -38,12 +39,17 @@ class Post {
         return _userUID
     }
     
+    var postedDate: String {
+        return _postedDate
+    }
     
-    init(caption: String, imageUrl: String, likes: Int, userUID: String) {
+    
+    init(caption: String, imageUrl: String, likes: Int, userUID: String, postedDate: String) {
         self._caption = caption
         self._imageUrl = imageUrl
         self._likes = likes
         self._userUID = userUID
+        self._postedDate = postedDate
     }
     
     init(postKey: String, postData: Dictionary<String, AnyObject>) {
@@ -63,6 +69,10 @@ class Post {
         
         if let userUID = postData[USER_DB_STRING] as? String {
             self._userUID = userUID
+        }
+        
+        if let postedDate = postData[POSTED_DATE] as? String {
+            self._postedDate = postedDate
         }
 
         

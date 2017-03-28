@@ -22,8 +22,7 @@ class PostCell: UITableViewCell {
     var likesRef: FIRDatabaseReference!
     var profileImageUrlRef: FIRDatabaseReference!
     var usernameRef: FIRDatabaseReference!
-    
-    var users = [User]()
+
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -54,16 +53,26 @@ class PostCell: UITableViewCell {
                 print("something went wrong \(snapshot)")
             } else {
                 print(snapshot)
+                let url = snapshot.value as? String
+                let ref = FIRStorage.storage().reference(forURL: url!)
+                ref.data(withMaxSize: 2 * 1024 * 1024, completion: { (data, error) in
+                    if error != nil {
+                        print("CHASE: Unable to download image from firebase storage")
+                    } else {
+                        print("Image downloaded from FB Storage")
+                        if let imgData = data {
+                            if let img = UIImage(data: imgData) {
+                                self.profileImg.image = img
+                             //   FeedVC.imageCache.setObject(img, forKey: post.imageUrl as NSString)
+                            }
+                        }
+                    }
+                })
             }
         })
         
-        
         self.caption.text = post.caption
         self.likesLbl.text = "\(post.likes)"
-
-    
-        self.usernameLbl.text = post.userUID
-        
         
         if img != nil {
             self.postImg.image = img
