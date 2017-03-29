@@ -44,7 +44,7 @@ class PostCell: UITableViewCell {
         
         usernameRef.observeSingleEvent(of: .value, with: { (snapshot) in
             if let _ = snapshot.value as? NSNull {
-                self.usernameLbl.text = post.userUID
+                self.usernameLbl.text = "No Username"   
             } else {
                 self.usernameLbl.text = snapshot.value as? String
             }
@@ -53,6 +53,7 @@ class PostCell: UITableViewCell {
         profileImageUrlRef.observeSingleEvent(of: .value, with: { (snapshot) in
             if let _ = snapshot.value as? NSNull {
                 print("something went wrong \(snapshot)")
+                self.profileImg.image = UIImage(named: "profile-icon")
             } else {
                 print(snapshot)
                 let url = snapshot.value as? String
@@ -72,9 +73,7 @@ class PostCell: UITableViewCell {
                 })
             }
         })
-        
-        print("CHASE: THIS IS CURRENT USER: ------------ \(DataService.ds.REF_USER_CURRENT)")
-        
+        /*
         let string = "\(DataService.ds.REF_USER_CURRENT)"
         if string.range(of:post.userUID) != nil{
             self.deleteBtn.isEnabled = true
@@ -82,7 +81,7 @@ class PostCell: UITableViewCell {
             self.deleteBtn.isEnabled = false
             self.deleteBtn.isHidden = true
         }
-        
+        */
         self.caption.text = post.caption
         self.likesLbl.text = "\(post.likes)"
         

@@ -207,12 +207,25 @@
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r96-H0-Y9E">
+                                        <rect key="frame" x="336" y="20" width="62" height="38"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="20"/>
+                                        <state key="normal" title="Cancel">
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="cancelBtnTapped:" destination="1qK-be-Wff" eventType="touchUpInside" id="p3k-lM-Jn6"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.0" green="0.73725490199999999" blue="0.83137254900000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="Pdq-O1-jPP" firstAttribute="top" secondItem="0xr-oc-FIF" secondAttribute="top" constant="20" id="4kR-bK-sA5"/>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="65" id="6sp-Xx-4Uy"/>
+                                    <constraint firstAttribute="trailing" secondItem="r96-H0-Y9E" secondAttribute="trailing" constant="16" id="9mk-9e-Jej"/>
+                                    <constraint firstItem="r96-H0-Y9E" firstAttribute="centerY" secondItem="GIf-qj-0Vf" secondAttribute="centerY" id="ACa-W8-vxF"/>
                                     <constraint firstAttribute="height" constant="65" id="D2e-mh-0tC"/>
+                                    <constraint firstItem="r96-H0-Y9E" firstAttribute="top" secondItem="0xr-oc-FIF" secondAttribute="top" constant="20" id="Qx1-Im-ZSU"/>
                                     <constraint firstItem="Pdq-O1-jPP" firstAttribute="leading" secondItem="0xr-oc-FIF" secondAttribute="leading" constant="16" id="R7j-OK-SKR"/>
                                     <constraint firstItem="GIf-qj-0Vf" firstAttribute="centerX" secondItem="0xr-oc-FIF" secondAttribute="centerX" id="fVf-XE-yqG"/>
                                     <constraint firstItem="GIf-qj-0Vf" firstAttribute="centerY" secondItem="Pdq-O1-jPP" secondAttribute="centerY" id="gXW-QW-dnw"/>
@@ -277,7 +290,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="532" y="867"/>
+            <point key="canvasLocation" x="780" y="849"/>
         </scene>
         <!--FeedVC-->
         <scene sceneID="th9-7o-0Ox">
@@ -569,8 +582,8 @@
         <image name="unableToDownloadImage" width="797" height="626"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="KBM-JK-sqd"/>
-        <segue reference="iMc-ko-3IX"/>
+        <segue reference="bid-oc-GdO"/>
         <segue reference="uAp-gx-Q8Q"/>
+        <segue reference="iMc-ko-3IX"/>
     </inferredMetricsTieBreakers>
 </document>
