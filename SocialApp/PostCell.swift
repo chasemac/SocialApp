@@ -117,6 +117,9 @@ class PostCell: UITableViewCell {
             }
         })
     }
+    @IBAction func deleteBtnTapped(_ sender: Any) {
+        DataService.ds.REF_POSTS.child(post.postKey).removeValue()
+    }
 
 }
 
