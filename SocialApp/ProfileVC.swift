@@ -27,6 +27,9 @@ class ProfileVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerD
         imagePicker.allowsEditing = true
         imagePicker.delegate = self
         
+        self.nameTextField.delegate = self
+        self.usernameTextField.delegate = self
+        
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ProfileVC.dismissKeyboard))
         view.addGestureRecognizer(tap)
     }
@@ -86,7 +89,6 @@ class ProfileVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerD
                 }
             }
         }
-
     }
     
     func postToFirebase(imgUrl: String) {
@@ -108,6 +110,29 @@ class ProfileVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerD
         profileImg.image = UIImage(named: "add-image")
         self.performSegue(withIdentifier: "goFromProfiletoFeed", sender: nil)
 
+    }
+    
+    // MARK: KEYBOARD FUNCTIONS
+    // Move View
+    func moveTextField(textField: UITextField, moveDistance: Int, up: Bool) {
+        let moveDuration = 0.3
+        let movement: CGFloat = CGFloat(up ? moveDistance : -moveDistance)
+        
+        UIView.beginAnimations("animateTextField", context: nil)
+        UIView.setAnimationBeginsFromCurrentState(true)
+        UIView.setAnimationDuration(moveDuration)
+        self.view.frame = self.view.frame.offsetBy(dx: 0, dy: movement)
+        UIView.commitAnimations()
+    }
+    
+    // Keyboard shows
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        moveTextField(textField: textField, moveDistance: -100, up: true)
+    }
+    
+    // Keyboard is hidden
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        moveTextField(textField: textField, moveDistance: -100, up: false)
     }
     
     //presses return key

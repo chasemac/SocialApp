@@ -421,7 +421,7 @@
                                                                 <constraint firstAttribute="height" constant="20" id="pN6-PW-dXe"/>
                                                             </constraints>
                                                         </stackView>
-                                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Kay-p6-ieo">
+                                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Kay-p6-ieo">
                                                             <rect key="frame" x="8" y="808" width="382" height="50"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <constraints>
@@ -507,6 +507,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="caption" destination="Kay-p6-ieo" id="yel-Oe-uym"/>
+                                            <outlet property="deleteBtn" destination="kbj-yW-ssp" id="L0l-Jb-peY"/>
                                             <outlet property="likeImg" destination="Rk2-JZ-hlV" id="Pha-rt-oiF"/>
                                             <outlet property="likesLbl" destination="4Yl-bc-pNj" id="PoK-PF-5LP"/>
                                             <outlet property="postImg" destination="HPE-34-FhW" id="5af-j8-GzA"/>
