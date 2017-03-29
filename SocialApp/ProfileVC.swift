@@ -111,6 +111,9 @@ class ProfileVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerD
         self.performSegue(withIdentifier: "goFromProfiletoFeed", sender: nil)
 
     }
+    @IBAction func cancelBtnTapped(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
     
     // MARK: KEYBOARD FUNCTIONS
     // Move View
