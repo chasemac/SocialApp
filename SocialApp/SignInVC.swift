@@ -13,6 +13,7 @@ import Firebase
 import SwiftKeychainWrapper
 
 
+
 class SignInVC: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var emailField: FancyField!
@@ -90,8 +91,7 @@ class SignInVC: UIViewController, UITextFieldDelegate {
     func completeSignIn(id: String, userData: Dictionary<String, String>) {
         
         DataService.ds.createFirebaseDBUser(uid: id, userData: userData)
-        
-        // Save Data to keychain
+               // Save Data to keychain
         let keychainResult = KeychainWrapper.setString(id, forKey: KEY_UID)
         print("CHASE: Data saved to keychaise \(keychainResult)")
         
@@ -99,6 +99,8 @@ class SignInVC: UIViewController, UITextFieldDelegate {
         DataService.ds.REF_USERS.child(id).observeSingleEvent(of: .value, with: { (snapshot) in
             if snapshot.hasChild(USERNAME_DB_STRING) {
                 print("we're good")
+                
+
                 self.performSegue(withIdentifier: "goToFeed", sender: nil)
             } else {
                 print("username doesn't exist")
@@ -106,6 +108,8 @@ class SignInVC: UIViewController, UITextFieldDelegate {
             }
         })
     }
+    
+    
     
     // MARK: KEYBOARD FUNCTIONS
     // Move View

@@ -62,10 +62,4 @@ class DataService {
         REF_USERS.child(uid).updateChildValues(userData)
     }
     
-    func getUsername(uid: String) {
-        REF_USERS.queryEqual(toValue: uid).observeSingleEvent(of: .value, with: { (snapshot) in
-            print(snapshot)
-        })
-    }
-
 }

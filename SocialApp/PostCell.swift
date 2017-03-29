@@ -17,6 +17,7 @@ class PostCell: UITableViewCell {
     @IBOutlet weak var caption: UITextView!
     @IBOutlet weak var likesLbl: UILabel!
     @IBOutlet weak var likeImg: UIImageView!
+    @IBOutlet weak var deleteBtn: UIButton!
     
     var post: Post!
     var likesRef: FIRDatabaseReference!
@@ -31,6 +32,7 @@ class PostCell: UITableViewCell {
         tap.numberOfTapsRequired = 1
         likeImg.addGestureRecognizer(tap)
         likeImg.isUserInteractionEnabled = true
+        deleteBtn.isEnabled = false
     }
     
     
@@ -70,6 +72,16 @@ class PostCell: UITableViewCell {
                 })
             }
         })
+        
+        print("CHASE: THIS IS CURRENT USER: ------------ \(DataService.ds.REF_USER_CURRENT)")
+        
+        let string = "\(DataService.ds.REF_USER_CURRENT)"
+        if string.range(of:post.userUID) != nil{
+            self.deleteBtn.isEnabled = true
+        } else {
+            self.deleteBtn.isEnabled = false
+            self.deleteBtn.isHidden = true
+        }
         
         self.caption.text = post.caption
         self.likesLbl.text = "\(post.likes)"
