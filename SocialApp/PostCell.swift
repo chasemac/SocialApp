@@ -17,9 +17,13 @@ class PostCell: UITableViewCell {
     @IBOutlet weak var caption: UITextView!
     @IBOutlet weak var likesLbl: UILabel!
     @IBOutlet weak var likeImg: UIImageView!
+    @IBOutlet weak var deleteBtn: UIButton!
     
     var post: Post!
     var likesRef: FIRDatabaseReference!
+    var profileImageUrlRef: FIRDatabaseReference!
+    var usernameRef: FIRDatabaseReference!
+
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -28,12 +32,56 @@ class PostCell: UITableViewCell {
         tap.numberOfTapsRequired = 1
         likeImg.addGestureRecognizer(tap)
         likeImg.isUserInteractionEnabled = true
+        deleteBtn.isEnabled = false
     }
     
     
     func configureCell(post: Post, img: UIImage? = nil) {
         self.post = post
         likesRef = DataService.ds.REF_USER_CURRENT.child(LIKES_DB_STRING).child(post.postKey)
+        usernameRef = DataService.ds.REF_USERS.child(post.userUID).child(USERNAME_DB_STRING)
+        profileImageUrlRef = DataService.ds.REF_USERS.child(post.userUID).child(PROFILE_IMAGEURL_DB_STRING)
+        
+        usernameRef.observeSingleEvent(of: .value, with: { (snapshot) in
+            if let _ = snapshot.value as? NSNull {
+                self.usernameLbl.text = "No Username"   
+            } else {
+                self.usernameLbl.text = snapshot.value as? String
+            }
+        })
+        
+        profileImageUrlRef.observeSingleEvent(of: .value, with: { (snapshot) in
+            if let _ = snapshot.value as? NSNull {
+                print("something went wrong \(snapshot)")
+                self.profileImg.image = UIImage(named: "profile-icon")
+            } else {
+                print(snapshot)
+                let url = snapshot.value as? String
+                let ref = FIRStorage.storage().reference(forURL: url!)
+                ref.data(withMaxSize: 2 * 1024 * 1024, completion: { (data, error) in
+                    if error != nil {
+                        print("CHASE: Unable to download image from firebase storage")
+                    } else {
+                        print("Image downloaded from FB Storage")
+                        if let imgData = data {
+                            if let img = UIImage(data: imgData) {
+                                self.profileImg.image = img
+                             //   FeedVC.imageCache.setObject(img, forKey: post.imageUrl as NSString)
+                            }
+                        }
+                    }
+                })
+            }
+        })
+        
+        let string = "\(DataService.ds.REF_USER_CURRENT)"
+        if string.range(of:post.userUID) != nil{
+            self.deleteBtn.isEnabled = true
+            self.deleteBtn.isHidden = false
+        } else {
+            self.deleteBtn.isEnabled = false
+            self.deleteBtn.isHidden = true
+        }
         
         self.caption.text = post.caption
         self.likesLbl.text = "\(post.likes)"
@@ -81,6 +129,30 @@ class PostCell: UITableViewCell {
             }
         })
     }
+    
+    func deletePost() {
+        DataService.ds.REF_POSTS.child(post.postKey).removeValue()
+    }
+    /*
+    @IBAction func deleteBtnTapped(_ sender: Any) {
+
+        let alertController = UIAlertController(title: "Delete Post", message: "Are you sure you want to delete your post?", preferredStyle: UIAlertControllerStyle.alert)
+        let destructiveAction = UIAlertAction(title: "Yes", style: UIAlertActionStyle.destructive) {
+            (result : UIAlertAction) -> Void in
+            print("Post Deleted")
+            self.deletePost()
+        }
+        let okAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default) {
+            (result : UIAlertAction) -> Void in
+            print("Cancel")
+        }
+        alertController.addAction(destructiveAction)
+        alertController.addAction(okAction)
+        
+        
+    }
+    */
+    
 
 }
 

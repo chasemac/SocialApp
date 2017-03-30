@@ -12,6 +12,7 @@ import FBSDKLoginKit
 import Firebase
 import SwiftKeychainWrapper
 
+// /Users/chasemcelroy/Development/Tutorials/SocialApp/SocialApp/SignInVC.swift:38:72: Use 'String(describing:)' to silence this warning
 
 class SignInVC: UIViewController, UITextFieldDelegate {
 
@@ -34,7 +35,7 @@ class SignInVC: UIViewController, UITextFieldDelegate {
         let facebookLogin = FBSDKLoginManager()
         facebookLogin.logIn(withReadPermissions: ["email"], from: self) { (result, error) in
             if error != nil {
-                print("CHASE: unable to authenticate with facebook - \(error)")
+                print("CHASE: unable to authenticate with facebook - \(String(describing: error))")
                 
             } else if result?.isCancelled == true {
                 print("CHASE: user canceled")
@@ -49,7 +50,7 @@ class SignInVC: UIViewController, UITextFieldDelegate {
     func firebaseAuth(_ credential: FIRAuthCredential) {
         FIRAuth.auth()?.signIn(with: credential, completion: { (user, error) in
             if error != nil {
-                print("CHASE: Unable to auth with Firebase - \(error)")
+                print("CHASE: Unable to auth with Firebase - \(String(describing: error))")
                 
             } else {
                 print("CHASE: Succesffully authenticated with Firebase")
@@ -90,8 +91,7 @@ class SignInVC: UIViewController, UITextFieldDelegate {
     func completeSignIn(id: String, userData: Dictionary<String, String>) {
         
         DataService.ds.createFirebaseDBUser(uid: id, userData: userData)
-        
-        // Save Data to keychain
+               // Save Data to keychain
         let keychainResult = KeychainWrapper.setString(id, forKey: KEY_UID)
         print("CHASE: Data saved to keychaise \(keychainResult)")
         
@@ -99,6 +99,8 @@ class SignInVC: UIViewController, UITextFieldDelegate {
         DataService.ds.REF_USERS.child(id).observeSingleEvent(of: .value, with: { (snapshot) in
             if snapshot.hasChild(USERNAME_DB_STRING) {
                 print("we're good")
+                
+
                 self.performSegue(withIdentifier: "goToFeed", sender: nil)
             } else {
                 print("username doesn't exist")
@@ -106,6 +108,8 @@ class SignInVC: UIViewController, UITextFieldDelegate {
             }
         })
     }
+    
+    
     
     // MARK: KEYBOARD FUNCTIONS
     // Move View

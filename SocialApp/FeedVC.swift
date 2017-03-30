@@ -37,22 +37,25 @@ class FeedVC: UIViewController, UITableViewDelegate, UITextFieldDelegate, UITabl
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(FeedVC.dismissKeyboard))
         view.addGestureRecognizer(tap)
         
-        DataService.ds.REF_POSTS.observe(.value, with: { (snapshot) in
+        DataService.ds.REF_POSTS.queryOrdered(byChild: POSTED_DATE).observe(.value, with: { (snapshot) in
             
             self.posts = []
             
             if let snapshot = snapshot.children.allObjects as? [FIRDataSnapshot] {
                 for snap in snapshot {
-                    print("SNAP: \(snap)")
                     if let postDict = snap.value as? Dictionary<String, AnyObject> {
                         let key = snap.key
                         let post = Post(postKey: key, postData: postDict)
-                        self.posts.append(post)
+                        self.posts.insert(post, at: 0)
                     }
                 }
             }
             self.tableView.reloadData()
         })
+        
+        
+        
+        
         
     }
     
@@ -73,6 +76,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITextFieldDelegate, UITabl
             
             if let img = FeedVC.imageCache.object(forKey: post.imageUrl as NSString) {
                 cell.configureCell(post: post, img: img)
+                
             } else {
                 cell.configureCell(post: post)
             }
@@ -98,7 +102,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITextFieldDelegate, UITabl
     }
     
     @IBAction func postBtnTapped(_ sender: Any) {
-
+        
         guard let caption = captionField.text, caption != "" else {
             print("CHASE: Caption must be entered")
             return
@@ -127,13 +131,18 @@ class FeedVC: UIViewController, UITableViewDelegate, UITextFieldDelegate, UITabl
                 }
             }
         }
+        dismissKeyboard()
     }
     
     func postToFirebase(imgUrl: String) {
+        let user = KeychainWrapper.stringForKey(KEY_UID)!
         let post: Dictionary<String, Any> = [
-        CAPTION_DB_STRING: captionField.text! as AnyObject,
-        IMAGEURL_DB_STRING: imgUrl as AnyObject,
-        LIKES_DB_STRING: 0 as AnyObject
+            CAPTION_DB_STRING: captionField.text! as AnyObject,
+            IMAGEURL_DB_STRING: imgUrl as AnyObject,
+            LIKES_DB_STRING: 0 as AnyObject,
+            USER_DB_STRING: user as AnyObject,
+            POSTED_DATE: FIRServerValue.timestamp() as AnyObject
+            
         ]
         
         let firebasePost = DataService.ds.REF_POSTS.childByAutoId()
@@ -146,11 +155,52 @@ class FeedVC: UIViewController, UITableViewDelegate, UITextFieldDelegate, UITabl
         tableView.reloadData()
     }
     
-    @IBAction func signOutTapped(_ sender: Any) {
+    func singOut() {
         let keychainResult = KeychainWrapper.removeObjectForKey(KEY_UID)
         print("CHASE: ID Removed from keychain \(keychainResult)")
         try! FIRAuth.auth()?.signOut()
-        performSegue(withIdentifier: "goToSignIn", sender: nil)
+        self.performSegue(withIdentifier: "goToSignIn", sender: nil)
+    }
+    
+    @IBAction func signOutTapped(_ sender: Any) {
+        
+        let alertController = UIAlertController(title: "Log Out", message: "Are you sure you want to log out?", preferredStyle: UIAlertControllerStyle.alert)
+        let destructiveAction = UIAlertAction(title: "Yes", style: UIAlertActionStyle.destructive) {
+            (result : UIAlertAction) -> Void in
+            print("Signed Out")
+            self.singOut()
+        }
+        let okAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default) {
+            (result : UIAlertAction) -> Void in
+            print("Cancel")
+        }
+        alertController.addAction(destructiveAction)
+        alertController.addAction(okAction)
+        self.present(alertController, animated: true, completion: nil)
+        
+
+    }
+    @IBAction func profileTapped(_ sender: Any) {
+        self.performSegue(withIdentifier: "editProfile", sender: nil)
+    }
+    
+    // MARK: Fix Delete Btn
+    
+    @IBAction func deleteBtnTapped(_ sender: Any) {
+        let alertController = UIAlertController(title: "Delete Post", message: "Are you sure you want to delete your post?", preferredStyle: UIAlertControllerStyle.alert)
+        let destructiveAction = UIAlertAction(title: "Yes", style: UIAlertActionStyle.destructive) {
+            (result : UIAlertAction) -> Void in
+            print("Post Deleted")
+
+        }
+        let okAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default) {
+            (result : UIAlertAction) -> Void in
+            print("Cancel")
+        }
+        alertController.addAction(destructiveAction)
+        alertController.addAction(okAction)
+        self.present(alertController, animated: true, completion: nil)
+        
     }
     
     //presses return key
@@ -158,7 +208,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITextFieldDelegate, UITabl
         captionField.resignFirstResponder()
         return true
     }
-
+    
     
     //Calls this function when the tap is recognized.
     func dismissKeyboard() {
