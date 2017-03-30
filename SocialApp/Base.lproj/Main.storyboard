@@ -599,7 +599,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PCk-Cq-h9a" customClass="FancyView" customModule="SocialApp" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="661" width="414" height="75"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="If you haven't signed in before an account will be automatically created for you" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xYR-FN-7Y3">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xYR-FN-7Y3">
                                         <rect key="frame" x="8" y="8" width="398" height="59"/>
                                         <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="15"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="0.69999999999999996" colorSpace="calibratedRGB"/>
@@ -624,28 +624,28 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.87" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="QWN-hl-rfn">
-                                <rect key="frame" x="30" y="360" width="354" height="129"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="QWN-hl-rfn">
+                                <rect key="frame" x="30" y="357" width="354" height="129"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="ichasem@gmail.com" placeholder="Email address" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="yZ8-fm-q61" customClass="FancyField" customModule="SocialApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="354" height="25.000000000000007"/>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="ichasem@gmail.com" placeholder="Email address" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="yZ8-fm-q61" customClass="FancyField" customModule="SocialApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="354" height="25"/>
                                         <color key="textColor" red="0.23137254900000001" green="0.34901960780000002" blue="0.59607843140000005" alpha="0.87" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="18"/>
                                         <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                                     </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="123456" placeholder="Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="s34-8x-gqn" customClass="FancyField" customModule="SocialApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="31.000000000000007" width="354" height="25"/>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="123456" placeholder="Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="s34-8x-gqn" customClass="FancyField" customModule="SocialApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="31" width="354" height="25"/>
                                         <color key="textColor" red="0.23137254900000001" green="0.34901960780000002" blue="0.59607843140000005" alpha="0.87" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="18"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="go" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
                                     </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="123456" placeholder="Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="PEk-Qb-yDT" customClass="FancyField" customModule="SocialApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="62.000000000000007" width="354" height="24.999999999999993"/>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="123456" placeholder="Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="PEk-Qb-yDT" customClass="FancyField" customModule="SocialApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="62" width="354" height="25"/>
                                         <color key="textColor" red="0.23137254900000001" green="0.34901960780000002" blue="0.59607843140000005" alpha="0.87" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="18"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="go" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
                                     </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Ev-O2-mG2" customClass="FancyBtn" customModule="SocialApp" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Ev-O2-mG2" customClass="FancyBtn" customModule="SocialApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="93" width="354" height="36"/>
                                         <color key="backgroundColor" red="0.86666666670000003" green="0.17254901959999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
@@ -661,26 +661,26 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="8 character long password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nu3-dX-4DN">
-                                <rect key="frame" x="57.999999999999986" y="242" width="152.66666666666663" height="20"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8 character long password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nu3-dX-4DN">
+                                <rect key="frame" x="57.999999999999986" y="242" width="152.66666666666663" height="18"/>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="13"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="At least 1 lowercase letter in password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CxM-wO-32h">
-                                <rect key="frame" x="58" y="260" width="222.33333333333331" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="At least 1 lowercase letter in password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CxM-wO-32h">
+                                <rect key="frame" x="58" y="260" width="222.33333333333331" height="18"/>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="13"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="At least 1 capital letter in password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7rO-yT-BUM">
-                                <rect key="frame" x="58" y="280" width="203.33333333333331" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="At least 1 capital letter in password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7rO-yT-BUM">
+                                <rect key="frame" x="58" y="280" width="203.33333333333331" height="18"/>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="13"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="At least 1 number in password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qp4-8p-ryV">
-                                <rect key="frame" x="58" y="299" width="176" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="At least 1 number in password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qp4-8p-ryV">
+                                <rect key="frame" x="58" y="299" width="176" height="18"/>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="13"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -692,29 +692,29 @@
                                     <constraint firstAttribute="width" constant="20" id="lnz-2W-2LS"/>
                                 </constraints>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="incomplete" translatesAutoresizingMaskIntoConstraints="NO" id="3Kt-WR-pR9">
-                                <rect key="frame" x="30" y="242" width="20" height="20"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="incomplete" translatesAutoresizingMaskIntoConstraints="NO" id="3Kt-WR-pR9">
+                                <rect key="frame" x="30" y="241" width="20" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="20" id="Xup-x9-3VI"/>
                                     <constraint firstAttribute="height" constant="20" id="o4c-8O-nLH"/>
                                 </constraints>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="incomplete" translatesAutoresizingMaskIntoConstraints="NO" id="Lxo-0l-FSO">
-                                <rect key="frame" x="30" y="260" width="20" height="20"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="incomplete" translatesAutoresizingMaskIntoConstraints="NO" id="Lxo-0l-FSO">
+                                <rect key="frame" x="30" y="258.66666666666669" width="20" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="QKa-hq-ZyG"/>
                                     <constraint firstAttribute="width" constant="20" id="uTo-KL-Bcl"/>
                                 </constraints>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="incomplete" translatesAutoresizingMaskIntoConstraints="NO" id="pBO-SB-eTw">
-                                <rect key="frame" x="30" y="281" width="20" height="20"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="incomplete" translatesAutoresizingMaskIntoConstraints="NO" id="pBO-SB-eTw">
+                                <rect key="frame" x="30" y="279.66666666666669" width="20" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="20" id="Mbs-qd-PIN"/>
                                     <constraint firstAttribute="height" constant="20" id="VX2-V8-JI4"/>
                                 </constraints>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="incomplete" translatesAutoresizingMaskIntoConstraints="NO" id="L2l-p0-d4O">
-                                <rect key="frame" x="30" y="299" width="20" height="20"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="incomplete" translatesAutoresizingMaskIntoConstraints="NO" id="L2l-p0-d4O">
+                                <rect key="frame" x="30" y="297.66666666666669" width="20" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="20" id="Uip-8y-fy9"/>
                                     <constraint firstAttribute="height" constant="20" id="jl9-cf-4dQ"/>
@@ -726,14 +726,17 @@
                             <constraint firstAttribute="trailing" secondItem="PCk-Cq-h9a" secondAttribute="trailing" id="0HJ-wC-Ql4"/>
                             <constraint firstItem="TCW-hj-tL2" firstAttribute="leading" secondItem="NHX-0I-Oh3" secondAttribute="trailing" constant="8" id="0Rs-Ln-whd"/>
                             <constraint firstAttribute="trailing" secondItem="pRk-5j-eii" secondAttribute="trailing" id="4Lw-TH-NZX"/>
+                            <constraint firstItem="Qp4-8p-ryV" firstAttribute="top" secondItem="7rO-yT-BUM" secondAttribute="bottom" constant="1" id="4jr-hT-Ame"/>
                             <constraint firstItem="Lxo-0l-FSO" firstAttribute="centerX" secondItem="3Kt-WR-pR9" secondAttribute="centerX" id="5Dx-Px-G8T"/>
                             <constraint firstItem="yPB-yR-uxn" firstAttribute="top" secondItem="pRk-5j-eii" secondAttribute="bottom" constant="10" id="5gb-vW-Sho"/>
                             <constraint firstItem="pRk-5j-eii" firstAttribute="top" secondItem="FuX-Dq-jSA" secondAttribute="top" id="6MV-0I-Qlt"/>
                             <constraint firstItem="7rO-yT-BUM" firstAttribute="centerY" secondItem="pBO-SB-eTw" secondAttribute="centerY" id="7Xt-Ok-v4Q"/>
+                            <constraint firstItem="nu3-dX-4DN" firstAttribute="top" secondItem="TCW-hj-tL2" secondAttribute="bottom" constant="1" id="7YK-tH-hSb"/>
                             <constraint firstItem="QWN-hl-rfn" firstAttribute="top" secondItem="Qp4-8p-ryV" secondAttribute="bottom" constant="40" id="CEk-Ue-chg"/>
                             <constraint firstItem="nu3-dX-4DN" firstAttribute="leading" secondItem="3Kt-WR-pR9" secondAttribute="trailing" constant="8" id="Ct6-wF-l9y"/>
                             <constraint firstItem="Eyy-f3-4VT" firstAttribute="top" secondItem="PCk-Cq-h9a" secondAttribute="bottom" id="FQf-be-qyU"/>
                             <constraint firstItem="L2l-p0-d4O" firstAttribute="centerX" secondItem="pBO-SB-eTw" secondAttribute="centerX" id="GrM-15-r12"/>
+                            <constraint firstItem="7rO-yT-BUM" firstAttribute="top" secondItem="CxM-wO-32h" secondAttribute="bottom" constant="2" id="NjU-Ip-1ZA"/>
                             <constraint firstAttribute="trailing" secondItem="QWN-hl-rfn" secondAttribute="trailing" constant="30" id="ORL-kZ-HY1"/>
                             <constraint firstItem="TCW-hj-tL2" firstAttribute="top" secondItem="yPB-yR-uxn" secondAttribute="bottom" constant="18" id="PfW-OQ-ffa"/>
                             <constraint firstItem="yPB-yR-uxn" firstAttribute="trailing" secondItem="FuX-Dq-jSA" secondAttribute="trailingMargin" id="Q7m-ez-auP"/>
@@ -741,6 +744,7 @@
                             <constraint firstItem="nu3-dX-4DN" firstAttribute="centerY" secondItem="3Kt-WR-pR9" secondAttribute="centerY" id="SSE-Az-GeN"/>
                             <constraint firstItem="3Kt-WR-pR9" firstAttribute="centerX" secondItem="NHX-0I-Oh3" secondAttribute="centerX" id="TZo-fs-OG9"/>
                             <constraint firstItem="yPB-yR-uxn" firstAttribute="leading" secondItem="FuX-Dq-jSA" secondAttribute="leadingMargin" id="V4r-vm-c8m"/>
+                            <constraint firstItem="CxM-wO-32h" firstAttribute="top" secondItem="nu3-dX-4DN" secondAttribute="bottom" id="YeD-NW-JpO"/>
                             <constraint firstItem="QWN-hl-rfn" firstAttribute="centerX" secondItem="FuX-Dq-jSA" secondAttribute="centerX" id="ZM2-n9-m4R"/>
                             <constraint firstItem="pRk-5j-eii" firstAttribute="leading" secondItem="FuX-Dq-jSA" secondAttribute="leading" id="ZiK-JS-Qvr"/>
                             <constraint firstItem="Qp4-8p-ryV" firstAttribute="centerY" secondItem="L2l-p0-d4O" secondAttribute="centerY" id="brc-c3-rwg"/>
