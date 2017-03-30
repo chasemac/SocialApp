@@ -73,15 +73,16 @@ class PostCell: UITableViewCell {
                 })
             }
         })
-        /*
+        
         let string = "\(DataService.ds.REF_USER_CURRENT)"
         if string.range(of:post.userUID) != nil{
             self.deleteBtn.isEnabled = true
+            self.deleteBtn.isHidden = false
         } else {
             self.deleteBtn.isEnabled = false
             self.deleteBtn.isHidden = true
         }
-        */
+        
         self.caption.text = post.caption
         self.likesLbl.text = "\(post.likes)"
         
@@ -128,9 +129,30 @@ class PostCell: UITableViewCell {
             }
         })
     }
-    @IBAction func deleteBtnTapped(_ sender: Any) {
+    
+    func deletePost() {
         DataService.ds.REF_POSTS.child(post.postKey).removeValue()
     }
+    /*
+    @IBAction func deleteBtnTapped(_ sender: Any) {
+
+        let alertController = UIAlertController(title: "Delete Post", message: "Are you sure you want to delete your post?", preferredStyle: UIAlertControllerStyle.alert)
+        let destructiveAction = UIAlertAction(title: "Yes", style: UIAlertActionStyle.destructive) {
+            (result : UIAlertAction) -> Void in
+            print("Post Deleted")
+            self.deletePost()
+        }
+        let okAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default) {
+            (result : UIAlertAction) -> Void in
+            print("Cancel")
+        }
+        alertController.addAction(destructiveAction)
+        alertController.addAction(okAction)
+        
+        
+    }
+    */
+    
 
 }
 
