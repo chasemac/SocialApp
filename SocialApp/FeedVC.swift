@@ -53,6 +53,10 @@ class FeedVC: UIViewController, UITableViewDelegate, UITextFieldDelegate, UITabl
             self.tableView.reloadData()
         })
         
+        
+        
+        
+        
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -72,6 +76,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITextFieldDelegate, UITabl
             
             if let img = FeedVC.imageCache.object(forKey: post.imageUrl as NSString) {
                 cell.configureCell(post: post, img: img)
+                
             } else {
                 cell.configureCell(post: post)
             }
@@ -150,14 +155,52 @@ class FeedVC: UIViewController, UITableViewDelegate, UITextFieldDelegate, UITabl
         tableView.reloadData()
     }
     
-    @IBAction func signOutTapped(_ sender: Any) {
+    func singOut() {
         let keychainResult = KeychainWrapper.removeObjectForKey(KEY_UID)
         print("CHASE: ID Removed from keychain \(keychainResult)")
         try! FIRAuth.auth()?.signOut()
-        performSegue(withIdentifier: "goToSignIn", sender: nil)
+        self.performSegue(withIdentifier: "goToSignIn", sender: nil)
+    }
+    
+    @IBAction func signOutTapped(_ sender: Any) {
+        
+        let alertController = UIAlertController(title: "Log Out", message: "Are you sure you want to log out?", preferredStyle: UIAlertControllerStyle.alert)
+        let destructiveAction = UIAlertAction(title: "Yes", style: UIAlertActionStyle.destructive) {
+            (result : UIAlertAction) -> Void in
+            print("Signed Out")
+            self.singOut()
+        }
+        let okAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default) {
+            (result : UIAlertAction) -> Void in
+            print("Cancel")
+        }
+        alertController.addAction(destructiveAction)
+        alertController.addAction(okAction)
+        self.present(alertController, animated: true, completion: nil)
+        
+
     }
     @IBAction func profileTapped(_ sender: Any) {
         self.performSegue(withIdentifier: "editProfile", sender: nil)
+    }
+    
+    // MARK: Fix Delete Btn
+    
+    @IBAction func deleteBtnTapped(_ sender: Any) {
+        let alertController = UIAlertController(title: "Delete Post", message: "Are you sure you want to delete your post?", preferredStyle: UIAlertControllerStyle.alert)
+        let destructiveAction = UIAlertAction(title: "Yes", style: UIAlertActionStyle.destructive) {
+            (result : UIAlertAction) -> Void in
+            print("Post Deleted")
+
+        }
+        let okAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default) {
+            (result : UIAlertAction) -> Void in
+            print("Cancel")
+        }
+        alertController.addAction(destructiveAction)
+        alertController.addAction(okAction)
+        self.present(alertController, animated: true, completion: nil)
+        
     }
     
     //presses return key
