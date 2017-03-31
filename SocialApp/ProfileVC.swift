@@ -32,6 +32,39 @@ class ProfileVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerD
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ProfileVC.dismissKeyboard))
         view.addGestureRecognizer(tap)
+        
+        DataService.ds.setTextFieldToDataBaseText(DBRef: NAME_DB_STRING, textField: nameTextField)
+        DataService.ds.setTextFieldToDataBaseText(DBRef: USERNAME_DB_STRING, textField: usernameTextField)
+        
+        
+        DataService.ds.REF_USER_CURRENT.child(PROFILE_IMAGEURL_DB_STRING).observeSingleEvent(of: .value, with: { (snapshot) in
+            if let _ = snapshot.value as? NSNull {
+                print("something went wrong \(snapshot)")
+                self.profileImg.image = UIImage(named: "add-image")
+            } else {
+                print(snapshot)
+                let url = snapshot.value as? String
+                let ref = FIRStorage.storage().reference(forURL: url!)
+                ref.data(withMaxSize: 2 * 1024 * 1024, completion: { (data, error) in
+                    if error != nil {
+                        print("CHASE: Unable to download image from firebase storage")
+                    } else {
+                        print("Image downloaded from FB Storage")
+                        if let imgData = data {
+                            if let img = UIImage(data: imgData) {
+                                self.profileImg.image = img
+                                //   FeedVC.imageCache.setObject(img, forKey: post.imageUrl as NSString)
+                            }
+                        }
+                    }
+                })
+            }
+        })
+
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
@@ -42,7 +75,6 @@ class ProfileVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerD
             print("CHASE: A valid image wasn't selected")
         }
         imagePicker.dismiss(animated: true, completion: nil)
-        
     }
     
 

@@ -53,13 +53,18 @@ class DataService {
     var REF_PROFILE_IMAGES: FIRStorageReference {
         return _REF_PROFILE_IMAGES
     }
-    
-    
-    
 
     
     func createFirebaseDBUser(uid: String, userData: Dictionary<String, String>) {
         REF_USERS.child(uid).updateChildValues(userData)
+    }
+    
+    func setTextFieldToDataBaseText(DBRef: String, textField: UITextField) {
+        REF_USER_CURRENT.child(DBRef).observeSingleEvent(of: .value, with: { (snapshot) in
+            if snapshot.value != nil {
+                textField.text = snapshot.value! as? String
+            }
+        })
     }
     
 }

@@ -25,6 +25,26 @@ class SignInVC: UIViewController, UITextFieldDelegate {
         self.pwdField.delegate = self
     }
     
+    func test() {
+        DataService.ds.REF_USERS.child(PROVIDER_DB_STRING).observeSingleEvent(of: .value, with: { (snapshot) in
+            print(snapshot)
+            /*
+            if snapshot.hasChild() {
+                print("CHASE: HERE IT IS! ------------- \(snapshot)")
+                
+            //    self.performSegue(withIdentifier: "accountExists", sender: nil)
+            } else {
+                print("CHASE: EMAIL ISN't THERE! ------------- \(snapshot)")
+          //      self.performSegue(withIdentifier: "accountDoesNotExists", sender: nil)
+            }
+ */
+        })
+    }
+    
+    @IBAction func testPressed(_ sender: Any) {
+        test()
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         if let _ = KeychainWrapper.stringForKey(KEY_UID) {
             performSegue(withIdentifier: "goToFeed", sender: nil)
@@ -43,32 +63,46 @@ class SignInVC: UIViewController, UITextFieldDelegate {
                 print("CHASE: Successfully authenticated with facebook")
                 let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
                 self.firebaseAuth(credential)
+                
             }
         }
     }
     
     func firebaseAuth(_ credential: FIRAuthCredential) {
         FIRAuth.auth()?.signIn(with: credential, completion: { (user, error) in
+
             if error != nil {
                 print("CHASE: Unable to auth with Firebase - \(String(describing: error))")
                 
             } else {
                 print("CHASE: Succesffully authenticated with Firebase")
                 if let user = user {
-                    let userData = ["provider": credential.provider]
-                    self.completeSignIn(id: user.uid, userData: userData)
+                    if user.photoURL != nil {
+                        let userData = [PROVIDER_DB_STRING: credential.provider,
+                                        EMAIL_DB_STRING: user.email!,
+                                        NAME_DB_STRING: user.displayName!,
+                                        FACEBOOK_PROFILE_IMAGEURL_DB_STRING: user.photoURL!.absoluteString as String
+                        ]
+                        self.completeSignIn(id: user.uid, userData: userData)
+                    } else {
+                        let userData = [PROVIDER_DB_STRING: credential.provider,
+                                        EMAIL_DB_STRING: user.email!,
+                        ]
+                        self.completeSignIn(id: user.uid, userData: userData)
+                    }
                 }
             }
         })
     }
+    
     @IBAction func signInTapped(_ sender: Any) {
         if let email = emailField.text, let pwd = pwdField.text {
             FIRAuth.auth()?.signIn(withEmail: email, password: pwd, completion: { (user, error) in
                 if error == nil {
                     print("CHASE: EMAIL User authenticated with Firebase")
                     if let user = user {
-                        let userData = ["provider": user.providerID]
-                        
+                        let userData = [PROVIDER_DB_STRING: user.providerID,
+                                        EMAIL_DB_STRING: email]
                         self.completeSignIn(id: user.uid, userData: userData)
                     }
                 } else {
@@ -78,7 +112,8 @@ class SignInVC: UIViewController, UITextFieldDelegate {
                         } else {
                             print("CHASE: Succesffully authentitcated with Firebase email")
                             if let user = user {
-                                let userData = ["provider": user.providerID]
+                                let userData = ["provider": user.providerID,
+                                                EMAIL_DB_STRING: email]
                                 self.completeSignIn(id: user.uid, userData: userData)
                             }
                         }
@@ -98,9 +133,6 @@ class SignInVC: UIViewController, UITextFieldDelegate {
         // Check if Username exist
         DataService.ds.REF_USERS.child(id).observeSingleEvent(of: .value, with: { (snapshot) in
             if snapshot.hasChild(USERNAME_DB_STRING) {
-                print("we're good")
-                
-
                 self.performSegue(withIdentifier: "goToFeed", sender: nil)
             } else {
                 print("username doesn't exist")
@@ -108,7 +140,6 @@ class SignInVC: UIViewController, UITextFieldDelegate {
             }
         })
     }
-    
     
     
     // MARK: KEYBOARD FUNCTIONS
