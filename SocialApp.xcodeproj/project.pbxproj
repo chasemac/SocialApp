@@ -15,6 +15,8 @@
 		0E37C2001E7461AA005DFC5F /* FancyField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E37C1FF1E7461AA005DFC5F /* FancyField.swift */; };
 		0E37C2021E7462E2005DFC5F /* FancyBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E37C2011E7462E2005DFC5F /* FancyBtn.swift */; };
 		0E51508F1E8D68CE006D9B67 /* SignInEmailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E51508E1E8D68CE006D9B67 /* SignInEmailVC.swift */; };
+		0E5150911E8D75AE006D9B67 /* SignInPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E5150901E8D75AE006D9B67 /* SignInPasswordVC.swift */; };
+		0E5150931E8DFA12006D9B67 /* ViewCommentsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E5150921E8DFA12006D9B67 /* ViewCommentsVC.swift */; };
 		0E75CFFB1E7250F5001F5DB1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E75CFFA1E7250F5001F5DB1 /* AppDelegate.swift */; };
 		0E75CFFD1E7250F5001F5DB1 /* SignInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E75CFFC1E7250F5001F5DB1 /* SignInVC.swift */; };
 		0E75D0001E7250F5001F5DB1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E75CFFE1E7250F5001F5DB1 /* Main.storyboard */; };
@@ -38,6 +40,8 @@
 		0E37C1FF1E7461AA005DFC5F /* FancyField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FancyField.swift; sourceTree = "<group>"; };
 		0E37C2011E7462E2005DFC5F /* FancyBtn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FancyBtn.swift; sourceTree = "<group>"; };
 		0E51508E1E8D68CE006D9B67 /* SignInEmailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInEmailVC.swift; sourceTree = "<group>"; };
+		0E5150901E8D75AE006D9B67 /* SignInPasswordVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInPasswordVC.swift; sourceTree = "<group>"; };
+		0E5150921E8DFA12006D9B67 /* ViewCommentsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewCommentsVC.swift; sourceTree = "<group>"; };
 		0E75CFF71E7250F5001F5DB1 /* SocialApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SocialApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E75CFFA1E7250F5001F5DB1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0E75CFFC1E7250F5001F5DB1 /* SignInVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInVC.swift; sourceTree = "<group>"; };
@@ -102,9 +106,11 @@
 			isa = PBXGroup;
 			children = (
 				0E75CFFC1E7250F5001F5DB1 /* SignInVC.swift */,
+				0E51508E1E8D68CE006D9B67 /* SignInEmailVC.swift */,
+				0E5150901E8D75AE006D9B67 /* SignInPasswordVC.swift */,
 				0ECAF6DC1E834AB500083376 /* FeedVC.swift */,
 				0ED86F0E1E8AC1AC0079AEBF /* ProfileVC.swift */,
-				0E51508E1E8D68CE006D9B67 /* SignInEmailVC.swift */,
+				0E5150921E8DFA12006D9B67 /* ViewCommentsVC.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -301,7 +307,9 @@
 				0E37C2001E7461AA005DFC5F /* FancyField.swift in Sources */,
 				0E75CFFD1E7250F5001F5DB1 /* SignInVC.swift in Sources */,
 				0E051A821E85CB3700D5A4C4 /* Post.swift in Sources */,
+				0E5150911E8D75AE006D9B67 /* SignInPasswordVC.swift in Sources */,
 				0E37C1FE1E739D30005DFC5F /* RoundBtn.swift in Sources */,
+				0E5150931E8DFA12006D9B67 /* ViewCommentsVC.swift in Sources */,
 				0E75CFFB1E7250F5001F5DB1 /* AppDelegate.swift in Sources */,
 				0ED86F111E8B00080079AEBF /* User.swift in Sources */,
 				0E051A801E84E7C800D5A4C4 /* DataService.swift in Sources */,
