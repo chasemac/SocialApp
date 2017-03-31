@@ -25,26 +25,6 @@ class SignInVC: UIViewController, UITextFieldDelegate {
         self.pwdField.delegate = self
     }
     
-    func test() {
-        DataService.ds.REF_USERS.child(PROVIDER_DB_STRING).observeSingleEvent(of: .value, with: { (snapshot) in
-            print(snapshot)
-            /*
-            if snapshot.hasChild() {
-                print("CHASE: HERE IT IS! ------------- \(snapshot)")
-                
-            //    self.performSegue(withIdentifier: "accountExists", sender: nil)
-            } else {
-                print("CHASE: EMAIL ISN't THERE! ------------- \(snapshot)")
-          //      self.performSegue(withIdentifier: "accountDoesNotExists", sender: nil)
-            }
- */
-        })
-    }
-    
-    @IBAction func testPressed(_ sender: Any) {
-        test()
-    }
-    
     override func viewDidAppear(_ animated: Bool) {
         if let _ = KeychainWrapper.stringForKey(KEY_UID) {
             performSegue(withIdentifier: "goToFeed", sender: nil)

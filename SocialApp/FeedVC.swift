@@ -10,29 +10,21 @@ import UIKit
 import SwiftKeychainWrapper
 import Firebase
 
-class FeedVC: UIViewController, UITableViewDelegate, UITextFieldDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UINavigationControllerDelegate {
     
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var imageAdd: CircleView!
-    @IBOutlet weak var captionField: FancyField!
     
     var posts = [Post]()
-    var imagePicker: UIImagePickerController!
+
     
     static var imageCache: NSCache<NSString, UIImage> = NSCache()
-    var imageSelected = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.captionField.delegate = self
         tableView.delegate = self
         tableView.dataSource = self
-        
-        imagePicker = UIImagePickerController()
-        imagePicker.allowsEditing = true
-        imagePicker.delegate = self
-        
+
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(FeedVC.dismissKeyboard))
         view.addGestureRecognizer(tap)
         
@@ -94,76 +86,15 @@ class FeedVC: UIViewController, UITableViewDelegate, UITextFieldDelegate, UITabl
     
 
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        if let image = info[UIImagePickerControllerEditedImage] as? UIImage {
-            imageAdd.image = image
-            imageSelected = true
-        } else {
-            print("CHASE: A valid image wasn't selected")
-        }
-        imagePicker.dismiss(animated: true, completion: nil)
-        
-    }
     
     
     
     @IBAction func addImageTapped(_ sender: Any) {
-        present(imagePicker, animated: true, completion: nil)
+       performSegue(withIdentifier: "createPostSegue", sender: nil)
+      //  present(imagePicker, animated: true, completion: nil)
     }
     
-    @IBAction func postBtnTapped(_ sender: Any) {
-        
-        guard let caption = captionField.text, caption != "" else {
-            print("CHASE: Caption must be entered")
-            return
-        }
-        guard let img = imageAdd.image, imageSelected == true else {
-            print("Chase an image has been selected")
-            return
-        }
-        
-        if let imgData = UIImageJPEGRepresentation(img, 0.2) {
-            
-            let imgUid = NSUUID().uuidString
-            let metadata = FIRStorageMetadata()
-            metadata.contentType = "image/jpeg"
-            
-            DataService.ds.REF_POST_IMAGES.child(imgUid).put(imgData, metadata: metadata) { (metadata, error) in
-                if error != nil {
-                    print("CHASE: unable to upload to firebase storage")
-                } else {
-                    print("CHASE: Successfully uploaded image to Firebase Storage")
-                    let downloadURL = metadata?.downloadURL()?.absoluteString
-                    if let url = downloadURL {
-                        self.postToFirebase(imgUrl: url)
-                    }
-                    
-                }
-            }
-        }
-        dismissKeyboard()
-    }
     
-    func postToFirebase(imgUrl: String) {
-        let user = KeychainWrapper.stringForKey(KEY_UID)!
-        let post: Dictionary<String, Any> = [
-            CAPTION_DB_STRING: captionField.text! as AnyObject,
-            IMAGEURL_DB_STRING: imgUrl as AnyObject,
-            LIKES_DB_STRING: 0 as AnyObject,
-            USER_DB_STRING: user as AnyObject,
-            POSTED_DATE: FIRServerValue.timestamp() as AnyObject
-            
-        ]
-        
-        let firebasePost = DataService.ds.REF_POSTS.childByAutoId()
-        firebasePost.setValue(post)
-        
-        captionField.text = ""
-        imageSelected = false
-        imageAdd.image = UIImage(named: "add-image")
-        
-        tableView.reloadData()
-    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "viewComments" {
@@ -206,14 +137,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITextFieldDelegate, UITabl
     }
     
 
-    
 
-    
-    //presses return key
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        captionField.resignFirstResponder()
-        return true
-    }
     
     
     //Calls this function when the tap is recognized.
