@@ -14,6 +14,7 @@ class CreatePostVC: UIViewController, UITextFieldDelegate, UIImagePickerControll
 
     @IBOutlet weak var imageAdd: UIImageView!
     @IBOutlet weak var captionField: UITextField!
+    @IBOutlet weak var postBtn: UIButton!
     
     var imagePicker: UIImagePickerController!
     var imageSelected = false
@@ -44,6 +45,7 @@ class CreatePostVC: UIViewController, UITextFieldDelegate, UIImagePickerControll
 
     
     @IBAction func postBtnTapped(_ sender: Any) {
+        self.postBtn.isEnabled = false
         guard let caption = captionField.text, caption != "" else {
             let alertController = UIAlertController(title: "", message: "Please write a caption before posting", preferredStyle: UIAlertControllerStyle.alert)
             let okAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.default) {
@@ -83,6 +85,7 @@ class CreatePostVC: UIViewController, UITextFieldDelegate, UIImagePickerControll
                     print("CHASE: Successfully uploaded image to Firebase Storage")
                     let downloadURL = metadata?.downloadURL()?.absoluteString
                     if let url = downloadURL {
+                        
                         self.postToFirebase(imgUrl: url)
                     }
                     
