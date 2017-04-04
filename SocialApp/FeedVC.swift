@@ -66,13 +66,13 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UINa
         if let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell") as? PostCell {
             
             if let img = FeedVC.imageCache.object(forKey: post.imageUrl as NSString) {
-                cell.configureCell(post: post, img: img)
+                cell.configureCell(post, img: img)
                 tableView.rowHeight = UIScreen.main.bounds.size.width + 170
                 
                 
             } else {
                 tableView.rowHeight = UIScreen.main.bounds.size.width + 170
-                cell.configureCell(post: post)
+                cell.configureCell(post)
                 
               //  tableView.rowHeight = cell.contentView.frame.height (cell.imageView?.frame.height)! +
             }

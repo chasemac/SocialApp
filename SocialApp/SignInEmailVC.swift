@@ -10,7 +10,7 @@ import UIKit
 import SwiftKeychainWrapper
 import Firebase
 
-class SignInEmailVC: UIViewController, UITextFieldDelegate{
+class SignInEmailVC: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var validEmailAddress: UIImageView!
     @IBOutlet weak var pwdCharactersLong: UIImageView!
@@ -20,6 +20,7 @@ class SignInEmailVC: UIViewController, UITextFieldDelegate{
 
     @IBOutlet weak var emailField: FancyField!
     @IBOutlet weak var pwdField: FancyField!
+    
 
     
     override func viewDidLoad() {
@@ -29,34 +30,6 @@ class SignInEmailVC: UIViewController, UITextFieldDelegate{
         self.pwdField.delegate = self
     }
     
-    func firebaseAuth(_ credential: FIRAuthCredential) {
-        FIRAuth.auth()?.signIn(with: credential, completion: { (user, error) in
-            
-            if error != nil {
-                print("CHASE: Unable to auth with Firebase - \(String(describing: error))")
-                
-            } else {
-                print("CHASE: Succesffully authenticated with Firebase")
-                if let user = user {
-                    if user.photoURL != nil {
-                        let userData = [PROVIDER_DB_STRING: credential.provider,
-                                        EMAIL_DB_STRING: user.email!,
-                                        NAME_DB_STRING: user.displayName!,
-                                        FACEBOOK_PROFILE_IMAGEURL_DB_STRING: user.photoURL!.absoluteString as String
-                        ]
-                        self.completeSignIn(id: user.uid, userData: userData)
-                    } else {
-                        let userData = [PROVIDER_DB_STRING: credential.provider,
-                                        EMAIL_DB_STRING: user.email!,
-                                        ]
-                        self.completeSignIn(id: user.uid, userData: userData)
-                    }
-                }
-            }
-        })
-    }
-
-    
     @IBAction func signInBtnPressed(_ sender: Any) {
         if let email = emailField.text, let pwd = pwdField.text {
             FIRAuth.auth()?.signIn(withEmail: email, password: pwd, completion: { (user, error) in
@@ -65,18 +38,18 @@ class SignInEmailVC: UIViewController, UITextFieldDelegate{
                     if let user = user {
                         let userData = [PROVIDER_DB_STRING: user.providerID,
                                         EMAIL_DB_STRING: email]
-                        self.completeSignIn(id: user.uid, userData: userData)
+                        self.completeSignIn(user.uid, userData: userData)
                     }
                 } else {
                     FIRAuth.auth()?.createUser(withEmail: email, password: pwd, completion: { (user, error) in
                         if error != nil {
-                            print("CHASE: unable to authenticate with Firebase user email")
+                            print("CHASE: unable to authenticate with Firebase user email \(String(describing: error))!")
                         } else {
                             print("CHASE: Succesffully authentitcated with Firebase email")
                             if let user = user {
                                 let userData = ["provider": user.providerID,
                                                 EMAIL_DB_STRING: email]
-                                self.completeSignIn(id: user.uid, userData: userData)
+                                self.completeSignIn(user.uid, userData: userData)
                             }
                         }
                     })
@@ -86,9 +59,9 @@ class SignInEmailVC: UIViewController, UITextFieldDelegate{
 
     }
     
-    func completeSignIn(id: String, userData: Dictionary<String, String>) {
+    func completeSignIn(_ id: String, userData: Dictionary<String, String>) {
         
-        DataService.ds.createFirebaseDBUser(uid: id, userData: userData)
+        DataService.ds.createFirebaseDBUser(id, userData: userData)
         // Save Data to keychain
         let keychainResult = KeychainWrapper.setString(id, forKey: KEY_UID)
         print("CHASE: Data saved to keychaise \(keychainResult)")
@@ -106,13 +79,128 @@ class SignInEmailVC: UIViewController, UITextFieldDelegate{
     
     
     @IBAction func forgotPasswordBtnPressed(_ sender: Any) {
+        emailField.resignFirstResponder()
+  //      textFieldDidEndEditing(pwdField)
+        if self.validEmailAddress.image == UIImage(named: "complete") {
+
+            FIRAuth.auth()?.sendPasswordReset(withEmail: emailField.text!, completion: { (error) in
+                if let errCode = FIRAuthErrorCode(rawValue: error!._code) {
+                    switch errCode {
+                    case .errorCodeInvalidEmail:
+                        print("invalid email")
+                    case .errorCodeEmailAlreadyInUse:
+                        print("in use")
+                    case .errorCodeTooManyRequests:
+                        print("too many email attemps")
+                    case .errorCodeAppNotAuthorized:
+                        print("app not authorized")
+                    case .errorCodeNetworkError:
+                        print("network error")
+                    default:
+                        print("Create User Error: \(error!)")
+                    }
+                }
+                if error == nil {
+                    if self.emailField.text != nil {
+                        print(self.emailField.text!)
+                        let successfulEmailSentAlertConroller = UIAlertController(title: "", message: "Email sent ", preferredStyle: UIAlertControllerStyle.alert)
+                        let alrighty = UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: { (UIAlertAction) in
+                            
+                        })
+                        successfulEmailSentAlertConroller.addAction(alrighty)
+                        self.present(successfulEmailSentAlertConroller, animated: true, completion: nil)
+                    }
+                    
+                } else {
+
+                    let successfulEmailSentAlertConroller = UIAlertController(title: "", message: "\(String(describing: error))", preferredStyle: UIAlertControllerStyle.alert)
+                    let alrighty = UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: { (UIAlertAction) in
+                        
+                    })
+                    successfulEmailSentAlertConroller.addAction(alrighty)
+                    self.present(successfulEmailSentAlertConroller, animated: true, completion: nil)
+
+                }
+                
+                
+            })
+
+        } else {
+           
+            let alertController = UIAlertController(title: "", message: "Type valid email address in email field", preferredStyle: UIAlertControllerStyle.alert)
+            let okAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.default) {
+                (result : UIAlertAction) -> Void in
+            }
+            alertController.addAction(okAction)
+            self.present(alertController, animated: true, completion: nil)
+        }
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        // Valid Email Address
+        if (emailField.text?.contains("@"))! && (emailField.text?.contains("."))! {
+            self.validEmailAddress.image = UIImage(named: "complete")
+        } else {
+            self.validEmailAddress.image = UIImage(named: "incomplete")
+        }
+        // Long Password
+        if (pwdField.text?.characters.count)! > 7 {
+            self.pwdCharactersLong.image = UIImage(named: "complete")
+        } else {
+            self.pwdCharactersLong.image = UIImage(named: "incomplete")
+        }
+        // Lower Case
+        let lower = pwdField.text?.characters
+        var output = ""
+        
+        for chr in lower! {
+            let str = String(chr)
+            if str.lowercased() != str {
+                output += str
+            }
+        }
+        if output != "" {
+            self.pwdCharacterLowerCase.image = UIImage(named: "complete")
+        } else {
+            self.pwdCharacterLowerCase.image = UIImage(named: "incomplete")
+        }
+        // Upper Case
+        let upper = pwdField.text?.characters
+        var upperOutput = ""
+        
+        for chr in upper! {
+            let str = String(chr)
+            if str.uppercased() != str {
+                upperOutput += str
+            }
+        }
+        if upperOutput != "" {
+            self.pwdCharacterUpperCase.image = UIImage(named: "complete")
+        } else {
+            self.pwdCharacterUpperCase.image = UIImage(named: "incomplete")
+        }
+        // Contains Number
+        /*
+        if (pwdField.text?.contains(String([1,2,3,4,5,6,7,8,9,0])) {
+            self.pwdCharacterNumber.image = UIImage(named: "complete")
+        } else {
+            self.pwdCharacterNumber.image = UIImage(named: "incomplete")
+        }
+        */
+    
+        
+        return true
+    }
+    
+    func checkTextFor(textField: UITextView) {
         
     }
+
     
 
     // MARK: KEYBOARD FUNCTIONS
     // Move View
-    func moveTextField(textField: UITextField, moveDistance: Int, up: Bool) {
+    func moveTextField(_ textField: UITextField, moveDistance: Int, up: Bool) {
         let moveDuration = 0.3
         let movement: CGFloat = CGFloat(up ? moveDistance : -moveDistance)
         
@@ -125,12 +213,12 @@ class SignInEmailVC: UIViewController, UITextFieldDelegate{
     
     // Keyboard shows
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        moveTextField(textField: textField, moveDistance: -250, up: true)
+        moveTextField(textField, moveDistance: -250, up: true)
     }
     
     // Keyboard is hidden
     func textFieldDidEndEditing(_ textField: UITextField) {
-        moveTextField(textField: textField, moveDistance: -250, up: false)
+        moveTextField(textField, moveDistance: -250, up: false)
     }
     
     //presses return key

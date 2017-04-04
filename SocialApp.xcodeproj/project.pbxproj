@@ -212,7 +212,7 @@
 					0E75CFF61E7250F5001F5DB1 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = J2C764CY4K;
-						LastSwiftMigration = 0820;
+						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 					};
 				};

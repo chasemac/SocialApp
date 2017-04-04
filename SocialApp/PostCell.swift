@@ -37,7 +37,7 @@ class PostCell: UITableViewCell {
     }
     
     
-    func configureCell(post: Post, img: UIImage? = nil) {
+    func configureCell(_ post: Post, img: UIImage? = nil) {
         self.post = post
         likesRef = DataService.ds.REF_USER_CURRENT.child(LIKES_DB_STRING).child(post.postKey)
         usernameRef = DataService.ds.REF_USERS.child(post.userUID).child(USERNAME_DB_STRING)
@@ -124,15 +124,15 @@ class PostCell: UITableViewCell {
         
     }
     
-    func likeTapped(sender: UITapGestureRecognizer) {
+    func likeTapped(_ sender: UITapGestureRecognizer) {
         likesRef.observeSingleEvent(of: .value, with: { (snapshot) in
             if let _ = snapshot.value as? NSNull {
                 self.likeImg.image = UIImage(named: "filled-heart")
-                self.post.adjustLikes(addLike: true)
+                self.post.adjustLikes(true)
                 self.likesRef.setValue(true)
             } else {
                 self.likeImg.image = UIImage(named: "empty-heart")
-                self.post.adjustLikes(addLike: false)
+                self.post.adjustLikes(false)
                 self.likesRef.removeValue()
             }
         })

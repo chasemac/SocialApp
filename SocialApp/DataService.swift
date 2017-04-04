@@ -18,14 +18,14 @@ class DataService {
     static let ds = DataService()
     
     // DB References
-    private var _REF_BASE = DB_BASE
-    private var _REF_POSTS = DB_BASE.child(POSTS_DB_STRING)
-    private var _REF_USERS = DB_BASE.child(USERS_DB_STRING)
+    fileprivate var _REF_BASE = DB_BASE
+    fileprivate var _REF_POSTS = DB_BASE.child(POSTS_DB_STRING)
+    fileprivate var _REF_USERS = DB_BASE.child(USERS_DB_STRING)
     
     
     // Storage References
-    private var _REF_POST_IMAGES = STORAGE_BASE.child(POST_PICS_STORAGE_STRING)
-    private var _REF_PROFILE_IMAGES = STORAGE_BASE.child(PROFILE_PICS_STORAGE_STRING)
+    fileprivate var _REF_POST_IMAGES = STORAGE_BASE.child(POST_PICS_STORAGE_STRING)
+    fileprivate var _REF_PROFILE_IMAGES = STORAGE_BASE.child(PROFILE_PICS_STORAGE_STRING)
     
     var REF_BASE: FIRDatabaseReference {
         return _REF_BASE
@@ -55,11 +55,11 @@ class DataService {
     }
 
     
-    func createFirebaseDBUser(uid: String, userData: Dictionary<String, String>) {
+    func createFirebaseDBUser(_ uid: String, userData: Dictionary<String, String>) {
         REF_USERS.child(uid).updateChildValues(userData)
     }
     
-    func setTextFieldToDataBaseText(DBRef: String, textField: UITextField) {
+    func setTextFieldToDataBaseText(_ DBRef: String, textField: UITextField) {
         REF_USER_CURRENT.child(DBRef).observeSingleEvent(of: .value, with: { (snapshot) in
             if snapshot.value != nil {
                 textField.text = snapshot.value! as? String
