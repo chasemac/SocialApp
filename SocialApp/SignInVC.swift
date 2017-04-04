@@ -61,12 +61,12 @@ class SignInVC: UIViewController {
                                         NAME_DB_STRING: user.displayName!,
                                         FACEBOOK_PROFILE_IMAGEURL_DB_STRING: user.photoURL!.absoluteString as String
                         ]
-                        self.completeSignIn(id: user.uid, userData: userData)
+                        self.completeSignIn(user.uid, userData: userData)
                     } else {
                         let userData = [PROVIDER_DB_STRING: credential.provider,
                                         EMAIL_DB_STRING: user.email!,
                         ]
-                        self.completeSignIn(id: user.uid, userData: userData)
+                        self.completeSignIn(user.uid, userData: userData)
                     }
                 }
             }
@@ -74,9 +74,9 @@ class SignInVC: UIViewController {
     }
     
     
-    func completeSignIn(id: String, userData: Dictionary<String, String>) {
+    func completeSignIn(_ id: String, userData: Dictionary<String, String>) {
         
-        DataService.ds.createFirebaseDBUser(uid: id, userData: userData)
+        DataService.ds.createFirebaseDBUser(id, userData: userData)
                // Save Data to keychain
         let keychainResult = KeychainWrapper.setString(id, forKey: KEY_UID)
         print("CHASE: Data saved to keychaise \(keychainResult)")

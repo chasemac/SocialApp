@@ -67,7 +67,7 @@ class CreatePostVC: UIViewController, UITextFieldDelegate, UIImagePickerControll
         
         if let imgData = UIImageJPEGRepresentation(img, 0.2) {
             
-            let imgUid = NSUUID().uuidString
+            let imgUid = UUID().uuidString
             let metadata = FIRStorageMetadata()
             metadata.contentType = "image/jpeg"
             
@@ -86,7 +86,7 @@ class CreatePostVC: UIViewController, UITextFieldDelegate, UIImagePickerControll
                     let downloadURL = metadata?.downloadURL()?.absoluteString
                     if let url = downloadURL {
                         
-                        self.postToFirebase(imgUrl: url)
+                        self.postToFirebase(url)
                     }
                     
                 }
@@ -95,7 +95,7 @@ class CreatePostVC: UIViewController, UITextFieldDelegate, UIImagePickerControll
         dismissKeyboard()
     }
     
-    func postToFirebase(imgUrl: String) {
+    func postToFirebase(_ imgUrl: String) {
         let user = KeychainWrapper.stringForKey(KEY_UID)!
         let post: Dictionary<String, Any> = [
             CAPTION_DB_STRING: captionField.text! as AnyObject,
@@ -127,7 +127,7 @@ class CreatePostVC: UIViewController, UITextFieldDelegate, UIImagePickerControll
     
     // MARK: KEYBOARD FUNCTIONS
     // Move View
-    func moveTextField(textField: UITextField, moveDistance: Int, up: Bool) {
+    func moveTextField(_ textField: UITextField, moveDistance: Int, up: Bool) {
         let moveDuration = 0.3
         let movement: CGFloat = CGFloat(up ? moveDistance : -moveDistance)
         
@@ -140,12 +140,12 @@ class CreatePostVC: UIViewController, UITextFieldDelegate, UIImagePickerControll
     
     // Keyboard shows
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        moveTextField(textField: textField, moveDistance: -250, up: true)
+        moveTextField(textField, moveDistance: -250, up: true)
     }
     
     // Keyboard is hidden
     func textFieldDidEndEditing(_ textField: UITextField) {
-        moveTextField(textField: textField, moveDistance: -250, up: false)
+        moveTextField(textField, moveDistance: -250, up: false)
     }
     
     //presses return key

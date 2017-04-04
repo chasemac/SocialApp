@@ -10,13 +10,13 @@ import Foundation
 import Firebase
 
 class Post {
-    private var _caption: String!
-    private var _imageUrl: String!
-    private var _likes: Int!
-    private var _postKey: String!
-    private var _postRef: FIRDatabaseReference!
-    private var _userUID: String!
-    private var _postedDate: String!
+    fileprivate var _caption: String!
+    fileprivate var _imageUrl: String!
+    fileprivate var _likes: Int!
+    fileprivate var _postKey: String!
+    fileprivate var _postRef: FIRDatabaseReference!
+    fileprivate var _userUID: String!
+    fileprivate var _postedDate: String!
 
     
     var caption: String {
@@ -79,7 +79,7 @@ class Post {
         _postRef = DataService.ds.REF_POSTS.child(_postKey)
     }
     
-    func adjustLikes(addLike: Bool) {
+    func adjustLikes(_ addLike: Bool) {
         if addLike {
            _likes = _likes + 1
         } else {
