@@ -32,6 +32,7 @@ class SignInEmailVC: UIViewController, UITextFieldDelegate {
     
     @IBAction func signInBtnPressed(_ sender: Any) {
         if let email = emailField.text, let pwd = pwdField.text {
+            // SIGN IN USER
             FIRAuth.auth()?.signIn(withEmail: email, password: pwd, completion: { (user, error) in
                 if error == nil {
                     print("CHASE: EMAIL User authenticated with Firebase")
@@ -41,8 +42,19 @@ class SignInEmailVC: UIViewController, UITextFieldDelegate {
                         self.completeSignIn(user.uid, userData: userData)
                     }
                 } else {
+                
+                
+                }
+                
+                
+                
+                
+                
+           /*     {
+                    // CREATE USER
                     FIRAuth.auth()?.createUser(withEmail: email, password: pwd, completion: { (user, error) in
                         if error != nil {
+                            
                             print("CHASE: unable to authenticate with Firebase user email \(String(describing: error))!")
                         } else {
                             print("CHASE: Succesffully authentitcated with Firebase email")
@@ -53,7 +65,7 @@ class SignInEmailVC: UIViewController, UITextFieldDelegate {
                             }
                         }
                     })
-                }
+                }  */
             })
         }
 
@@ -84,55 +96,41 @@ class SignInEmailVC: UIViewController, UITextFieldDelegate {
         if self.validEmailAddress.image == UIImage(named: "complete") {
 
             FIRAuth.auth()?.sendPasswordReset(withEmail: emailField.text!, completion: { (error) in
-                if let errCode = FIRAuthErrorCode(rawValue: error!._code) {
-                    switch errCode {
-                    case .errorCodeInvalidEmail:
-                        print("invalid email")
-                    case .errorCodeEmailAlreadyInUse:
-                        print("in use")
-                    case .errorCodeTooManyRequests:
-                        print("too many email attemps")
-                    case .errorCodeAppNotAuthorized:
-                        print("app not authorized")
-                    case .errorCodeNetworkError:
-                        print("network error")
-                    default:
-                        print("Create User Error: \(error!)")
-                    }
-                }
-                if error == nil {
-                    if self.emailField.text != nil {
-                        print(self.emailField.text!)
-                        let successfulEmailSentAlertConroller = UIAlertController(title: "", message: "Email sent ", preferredStyle: UIAlertControllerStyle.alert)
-                        let alrighty = UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: { (UIAlertAction) in
+    
+                if error != nil {
+                    if let errCode = FIRAuthErrorCode(rawValue: error!._code) {
+                        switch errCode {
+                        case .errorCodeInvalidEmail:
+                            setupDefaultAlert(title: "", message: "\(self.emailField.text!) does not exist", actionTitle: "Ok", VC: self)
+                            print("invalid email")
+                        case .errorCodeUserNotFound:
+                            setupDefaultAlert(title: "", message: "\(self.emailField.text!) does not exist", actionTitle: "Ok", VC: self)
+                        case .errorCodeEmailAlreadyInUse:
+                            print("in use")
+                        case .errorCodeTooManyRequests:
+                            setupDefaultAlert(title: "", message: "Too many requests", actionTitle: "Ok", VC: self)
+                            print("too many email attemps")
+                        case .errorCodeAppNotAuthorized:
+                            print("app not authorized")
+                        case .errorCodeNetworkError:
+                            print("network error")
+                            setupDefaultAlert(title: "", message: "Unable to connect to the internet!", actionTitle: "Ok", VC: self)
+                        default:
+                            print("Create User Error: \(error!)")
                             
-                        })
-                        successfulEmailSentAlertConroller.addAction(alrighty)
-                        self.present(successfulEmailSentAlertConroller, animated: true, completion: nil)
+                        }
                     }
-                    
                 } else {
-
-                    let successfulEmailSentAlertConroller = UIAlertController(title: "", message: "\(String(describing: error))", preferredStyle: UIAlertControllerStyle.alert)
-                    let alrighty = UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: { (UIAlertAction) in
-                        
-                    })
-                    successfulEmailSentAlertConroller.addAction(alrighty)
-                    self.present(successfulEmailSentAlertConroller, animated: true, completion: nil)
-
+                    if self.emailField.text != nil {
+                        setupDefaultAlert(title: "", message: "Reset Email Sent!", actionTitle: "Ok", VC: self)
+                    }
                 }
-                
                 
             })
 
         } else {
            
-            let alertController = UIAlertController(title: "", message: "Type valid email address in email field", preferredStyle: UIAlertControllerStyle.alert)
-            let okAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.default) {
-                (result : UIAlertAction) -> Void in
-            }
-            alertController.addAction(okAction)
-            self.present(alertController, animated: true, completion: nil)
+            setupDefaultAlert(title: "", message: "Type valid email address in email field", actionTitle: "Ok", VC: self)
         }
     }
     
@@ -191,6 +189,7 @@ class SignInEmailVC: UIViewController, UITextFieldDelegate {
         
         return true
     }
+    
     
     func checkTextFor(textField: UITextView) {
         
