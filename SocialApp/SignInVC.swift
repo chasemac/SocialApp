@@ -33,6 +33,7 @@ class SignInVC: UIViewController {
         let facebookLogin = FBSDKLoginManager()
         facebookLogin.logIn(withReadPermissions: ["email"], from: self) { (result, error) in
             if error != nil {
+                
                 print("CHASE: unable to authenticate with facebook - \(String(describing: error))")
                 
             } else if result?.isCancelled == true {
