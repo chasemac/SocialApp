@@ -32,6 +32,39 @@ class ProfileVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerD
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ProfileVC.dismissKeyboard))
         view.addGestureRecognizer(tap)
+        
+        DataService.ds.setTextFieldToDataBaseText(NAME_DB_STRING, textField: nameTextField)
+        DataService.ds.setTextFieldToDataBaseText(USERNAME_DB_STRING, textField: usernameTextField)
+        
+        
+        DataService.ds.REF_USER_CURRENT.child(PROFILE_IMAGEURL_DB_STRING).observeSingleEvent(of: .value, with: { (snapshot) in
+            if let _ = snapshot.value as? NSNull {
+                print("something went wrong \(snapshot)")
+                self.profileImg.image = UIImage(named: "add-image")
+            } else {
+                print(snapshot)
+                let url = snapshot.value as? String
+                let ref = FIRStorage.storage().reference(forURL: url!)
+                ref.data(withMaxSize: 2 * 1024 * 1024, completion: { (data, error) in
+                    if error != nil {
+                        print("CHASE: Unable to download image from firebase storage")
+                    } else {
+                        print("Image downloaded from FB Storage")
+                        if let imgData = data {
+                            if let img = UIImage(data: imgData) {
+                                self.profileImg.image = img
+                                //   FeedVC.imageCache.setObject(img, forKey: post.imageUrl as NSString)
+                            }
+                        }
+                    }
+                })
+            }
+        })
+
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
@@ -42,7 +75,6 @@ class ProfileVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerD
             print("CHASE: A valid image wasn't selected")
         }
         imagePicker.dismiss(animated: true, completion: nil)
-        
     }
     
 
@@ -73,7 +105,7 @@ class ProfileVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerD
         
         if let imgData = UIImageJPEGRepresentation(img, 0.2) {
             
-            let imgUid = NSUUID().uuidString
+            let imgUid = UUID().uuidString
             let metadata = FIRStorageMetadata()
             metadata.contentType = "image/jpeg"
             
@@ -84,14 +116,14 @@ class ProfileVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerD
                     print("CHASE: Successfully uploaded image to Firebase Storage")
                     let downloadURL = metadata?.downloadURL()?.absoluteString
                     if let url = downloadURL {
-                        self.postToFirebase(imgUrl: url)
+                        self.postToFirebase(url)
                     }
                 }
             }
         }
     }
     
-    func postToFirebase(imgUrl: String) {
+    func postToFirebase(_ imgUrl: String) {
         let post: Dictionary<String, Any> = [
             NAME_DB_STRING: nameTextField.text! as AnyObject,
             PROFILE_IMAGEURL_DB_STRING: imgUrl as AnyObject,
@@ -117,7 +149,7 @@ class ProfileVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerD
     
     // MARK: KEYBOARD FUNCTIONS
     // Move View
-    func moveTextField(textField: UITextField, moveDistance: Int, up: Bool) {
+    func moveTextField(_ textField: UITextField, moveDistance: Int, up: Bool) {
         let moveDuration = 0.3
         let movement: CGFloat = CGFloat(up ? moveDistance : -moveDistance)
         
@@ -130,12 +162,12 @@ class ProfileVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerD
     
     // Keyboard shows
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        moveTextField(textField: textField, moveDistance: -100, up: true)
+        moveTextField(textField, moveDistance: -100, up: true)
     }
     
     // Keyboard is hidden
     func textFieldDidEndEditing(_ textField: UITextField) {
-        moveTextField(textField: textField, moveDistance: -100, up: false)
+        moveTextField(textField, moveDistance: -100, up: false)
     }
     
     //presses return key

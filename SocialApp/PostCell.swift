@@ -19,6 +19,7 @@ class PostCell: UITableViewCell {
     @IBOutlet weak var likeImg: UIImageView!
     @IBOutlet weak var deleteBtn: UIButton!
     
+    
     var post: Post!
     var likesRef: FIRDatabaseReference!
     var profileImageUrlRef: FIRDatabaseReference!
@@ -36,7 +37,7 @@ class PostCell: UITableViewCell {
     }
     
     
-    func configureCell(post: Post, img: UIImage? = nil) {
+    func configureCell(_ post: Post, img: UIImage? = nil) {
         self.post = post
         likesRef = DataService.ds.REF_USER_CURRENT.child(LIKES_DB_STRING).child(post.postKey)
         usernameRef = DataService.ds.REF_USERS.child(post.userUID).child(USERNAME_DB_STRING)
@@ -55,7 +56,6 @@ class PostCell: UITableViewCell {
                 print("something went wrong \(snapshot)")
                 self.profileImg.image = UIImage(named: "profile-icon")
             } else {
-                print(snapshot)
                 let url = snapshot.value as? String
                 let ref = FIRStorage.storage().reference(forURL: url!)
                 ref.data(withMaxSize: 2 * 1024 * 1024, completion: { (data, error) in
@@ -72,6 +72,8 @@ class PostCell: UITableViewCell {
                     }
                 })
             }
+            
+            
         })
         
         let string = "\(DataService.ds.REF_USER_CURRENT)"
@@ -114,17 +116,23 @@ class PostCell: UITableViewCell {
                 self.likeImg.image = UIImage(named: "filled-heart")
             }
         })
+        
+
+        
+    
+        
+        
     }
     
-    func likeTapped(sender: UITapGestureRecognizer) {
+    func likeTapped(_ sender: UITapGestureRecognizer) {
         likesRef.observeSingleEvent(of: .value, with: { (snapshot) in
             if let _ = snapshot.value as? NSNull {
                 self.likeImg.image = UIImage(named: "filled-heart")
-                self.post.adjustLikes(addLike: true)
+                self.post.adjustLikes(true)
                 self.likesRef.setValue(true)
             } else {
                 self.likeImg.image = UIImage(named: "empty-heart")
-                self.post.adjustLikes(addLike: false)
+                self.post.adjustLikes(false)
                 self.likesRef.removeValue()
             }
         })
@@ -133,26 +141,10 @@ class PostCell: UITableViewCell {
     func deletePost() {
         DataService.ds.REF_POSTS.child(post.postKey).removeValue()
     }
-    /*
-    @IBAction func deleteBtnTapped(_ sender: Any) {
-
-        let alertController = UIAlertController(title: "Delete Post", message: "Are you sure you want to delete your post?", preferredStyle: UIAlertControllerStyle.alert)
-        let destructiveAction = UIAlertAction(title: "Yes", style: UIAlertActionStyle.destructive) {
-            (result : UIAlertAction) -> Void in
-            print("Post Deleted")
-            self.deletePost()
-        }
-        let okAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default) {
-            (result : UIAlertAction) -> Void in
-            print("Cancel")
-        }
-        alertController.addAction(destructiveAction)
-        alertController.addAction(okAction)
-        
-        
-    }
-    */
     
+    @IBAction func deleteBtnTapped(_ sender: Any) {
+        deletePost()
+    }
 
 }
 
