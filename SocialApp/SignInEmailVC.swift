@@ -11,21 +11,21 @@ import SwiftKeychainWrapper
 import Firebase
 
 class SignInEmailVC: UIViewController, UITextFieldDelegate {
-
+    
     @IBOutlet weak var validEmailAddress: UIImageView!
     @IBOutlet weak var pwdCharactersLong: UIImageView!
     @IBOutlet weak var pwdCharacterLowerCase: UIImageView!
     @IBOutlet weak var pwdCharacterUpperCase: UIImageView!
     @IBOutlet weak var pwdCharacterNumber: UIImageView!
-
+    
     @IBOutlet weak var emailField: FancyField!
     @IBOutlet weak var pwdField: FancyField!
     
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         self.emailField.delegate = self
         self.pwdField.delegate = self
     }
@@ -42,33 +42,55 @@ class SignInEmailVC: UIViewController, UITextFieldDelegate {
                         self.completeSignIn(user.uid, userData: userData)
                     }
                 } else {
-                
-                
-                }
-                
-                
-                
-                
-                
-           /*     {
-                    // CREATE USER
-                    FIRAuth.auth()?.createUser(withEmail: email, password: pwd, completion: { (user, error) in
-                        if error != nil {
-                            
-                            print("CHASE: unable to authenticate with Firebase user email \(String(describing: error))!")
-                        } else {
-                            print("CHASE: Succesffully authentitcated with Firebase email")
-                            if let user = user {
-                                let userData = ["provider": user.providerID,
-                                                EMAIL_DB_STRING: email]
-                                self.completeSignIn(user.uid, userData: userData)
+                    if let errCode = FIRAuthErrorCode(rawValue: error!._code) {
+                        switch errCode {
+                        case .errorCodeInvalidEmail:
+                            setupDefaultAlert(title: "", message: "\(self.emailField.text!) does not exist", actionTitle: "Ok", VC: self)
+                            print("invalid email")
+                        case .errorCodeUserNotFound:
+                            // CREATE USER
+                            let alertController = UIAlertController(title: "Create New User?", message: "\(self.emailField.text!) user account does not exist", preferredStyle: UIAlertControllerStyle.alert)
+                            let destructiveAction = UIAlertAction(title: "Create", style: UIAlertActionStyle.destructive) {
+                                (result : UIAlertAction) -> Void in
+
+                                FIRAuth.auth()?.createUser(withEmail: email, password: pwd, completion: { (user, error) in
+                                    if error != nil {
+                                        print("CHASE: unable to authenticate with Firebase user email \(String(describing: error))!")
+                                    } else {
+                                        print("CHASE: Succesffully authentitcated with Firebase email")
+                                        print("New User Created")
+                                        if let user = user {
+                                            let userData = ["provider": user.providerID,
+                                                            EMAIL_DB_STRING: email]
+                                            self.completeSignIn(user.uid, userData: userData)
+                                        }
+                                    }
+                                })
+                                
                             }
+                            let okAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default) {
+                                (result : UIAlertAction) -> Void in
+                                print("Cancel")
+                            }
+                            alertController.addAction(destructiveAction)
+                            alertController.addAction(okAction)
+                            self.present(alertController, animated: true, completion: nil)
+                            
+                        case .errorCodeTooManyRequests:
+                            setupDefaultAlert(title: "", message: "Too many requests", actionTitle: "Ok", VC: self)
+                            print("too many email attemps")
+                        case .errorCodeAppNotAuthorized:
+                            print("app not authorized")
+                        case .errorCodeNetworkError:
+                            print("network error")
+                            setupDefaultAlert(title: "", message: "Unable to connect to the internet!", actionTitle: "Ok", VC: self)
+                        default:
+                            print("Create User Error: \(error!)")
                         }
-                    })
-                }  */
+                    }
+                }
             })
         }
-
     }
     
     func completeSignIn(_ id: String, userData: Dictionary<String, String>) {
@@ -92,11 +114,11 @@ class SignInEmailVC: UIViewController, UITextFieldDelegate {
     
     @IBAction func forgotPasswordBtnPressed(_ sender: Any) {
         emailField.resignFirstResponder()
-  //      textFieldDidEndEditing(pwdField)
+        //      textFieldDidEndEditing(pwdField)
         if self.validEmailAddress.image == UIImage(named: "complete") {
-
+            
             FIRAuth.auth()?.sendPasswordReset(withEmail: emailField.text!, completion: { (error) in
-    
+                
                 if error != nil {
                     if let errCode = FIRAuthErrorCode(rawValue: error!._code) {
                         switch errCode {
@@ -127,9 +149,9 @@ class SignInEmailVC: UIViewController, UITextFieldDelegate {
                 }
                 
             })
-
+            
         } else {
-           
+            
             setupDefaultAlert(title: "", message: "Type valid email address in email field", actionTitle: "Ok", VC: self)
         }
     }
@@ -179,13 +201,13 @@ class SignInEmailVC: UIViewController, UITextFieldDelegate {
         }
         // Contains Number
         /*
-        if (pwdField.text?.contains(String([1,2,3,4,5,6,7,8,9,0])) {
-            self.pwdCharacterNumber.image = UIImage(named: "complete")
-        } else {
-            self.pwdCharacterNumber.image = UIImage(named: "incomplete")
-        }
-        */
-    
+         if (pwdField.text?.contains(String([1,2,3,4,5,6,7,8,9,0])) {
+         self.pwdCharacterNumber.image = UIImage(named: "complete")
+         } else {
+         self.pwdCharacterNumber.image = UIImage(named: "incomplete")
+         }
+         */
+        
         
         return true
     }
@@ -194,9 +216,9 @@ class SignInEmailVC: UIViewController, UITextFieldDelegate {
     func checkTextFor(textField: UITextView) {
         
     }
-
     
-
+    
+    
     // MARK: KEYBOARD FUNCTIONS
     // Move View
     func moveTextField(_ textField: UITextField, moveDistance: Int, up: Bool) {
@@ -231,5 +253,5 @@ class SignInEmailVC: UIViewController, UITextFieldDelegate {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
-
+    
 }
