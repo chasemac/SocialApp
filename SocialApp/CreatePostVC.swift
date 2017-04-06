@@ -39,7 +39,6 @@ class CreatePostVC: UIViewController, UITextFieldDelegate, UIImagePickerControll
             print("CHASE: A valid image wasn't selected")
         }
         imagePicker.dismiss(animated: true, completion: nil)
-        
     }
 
 

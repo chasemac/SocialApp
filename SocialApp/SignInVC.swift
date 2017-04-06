@@ -16,11 +16,8 @@ import SwiftKeychainWrapper
 
 class SignInVC: UIViewController {
 
-
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -33,7 +30,6 @@ class SignInVC: UIViewController {
         let facebookLogin = FBSDKLoginManager()
         facebookLogin.logIn(withReadPermissions: ["email"], from: self) { (result, error) in
             if error != nil {
-                // Swith
                 print("CHASE: unable to authenticate with facebook - \(String(describing: error))")
                 
             } else if result?.isCancelled == true {
@@ -42,7 +38,6 @@ class SignInVC: UIViewController {
                 print("CHASE: Successfully authenticated with facebook")
                 let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
                 self.firebaseAuth(credential)
-                
             }
         }
     }
@@ -62,33 +57,14 @@ class SignInVC: UIViewController {
                                         NAME_DB_STRING: user.displayName!,
                                         FACEBOOK_PROFILE_IMAGEURL_DB_STRING: user.photoURL!.absoluteString as String
                         ]
-                        self.completeSignIn(user.uid, userData: userData)
+                        completeSignIn(user.uid, userData: userData, VC: self, usernameExistsSegue: "goToFeed", userNameDNESegue: "createProfile")
                     } else {
                         let userData = [PROVIDER_DB_STRING: credential.provider,
                                         EMAIL_DB_STRING: user.email!,
                         ]
-                        self.completeSignIn(user.uid, userData: userData)
+                        completeSignIn(user.uid, userData: userData, VC: self, usernameExistsSegue: "goToFeed", userNameDNESegue: "createProfile")
                     }
                 }
-            }
-        })
-    }
-    
-    
-    func completeSignIn(_ id: String, userData: Dictionary<String, String>) {
-        
-        DataService.ds.createFirebaseDBUser(id, userData: userData)
-               // Save Data to keychain
-        let keychainResult = KeychainWrapper.setString(id, forKey: KEY_UID)
-        print("CHASE: Data saved to keychaise \(keychainResult)")
-        
-        // Check if Username exist
-        DataService.ds.REF_USERS.child(id).observeSingleEvent(of: .value, with: { (snapshot) in
-            if snapshot.hasChild(USERNAME_DB_STRING) {
-                self.performSegue(withIdentifier: "goToFeed", sender: nil)
-            } else {
-                print("username doesn't exist")
-                self.performSegue(withIdentifier: "createProfile", sender: nil)
             }
         })
     }

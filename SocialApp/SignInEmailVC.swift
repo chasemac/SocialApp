@@ -20,8 +20,7 @@ class SignInEmailVC: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var emailField: FancyField!
     @IBOutlet weak var pwdField: FancyField!
-    
-    
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,7 +38,7 @@ class SignInEmailVC: UIViewController, UITextFieldDelegate {
                     if let user = user {
                         let userData = [PROVIDER_DB_STRING: user.providerID,
                                         EMAIL_DB_STRING: email]
-                        self.completeSignIn(user.uid, userData: userData)
+                        completeSignIn(user.uid, userData: userData, VC: self, usernameExistsSegue: "goToFeedFromEmail", userNameDNESegue: "createProfileFromEmail")
                     }
                 } else {
                     if let errCode = FIRAuthErrorCode(rawValue: error!._code) {
@@ -62,11 +61,10 @@ class SignInEmailVC: UIViewController, UITextFieldDelegate {
                                         if let user = user {
                                             let userData = ["provider": user.providerID,
                                                             EMAIL_DB_STRING: email]
-                                            self.completeSignIn(user.uid, userData: userData)
+                                            completeSignIn(user.uid, userData: userData, VC: self, usernameExistsSegue: "goToFeedFromEmail", userNameDNESegue: "createProfileFromEmail")
                                         }
                                     }
                                 })
-                                
                             }
                             let okAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default) {
                                 (result : UIAlertAction) -> Void in
@@ -92,25 +90,7 @@ class SignInEmailVC: UIViewController, UITextFieldDelegate {
             })
         }
     }
-    
-    func completeSignIn(_ id: String, userData: Dictionary<String, String>) {
-        
-        DataService.ds.createFirebaseDBUser(id, userData: userData)
-        // Save Data to keychain
-        let keychainResult = KeychainWrapper.setString(id, forKey: KEY_UID)
-        print("CHASE: Data saved to keychaise \(keychainResult)")
-        
-        // Check if Username exist
-        DataService.ds.REF_USERS.child(id).observeSingleEvent(of: .value, with: { (snapshot) in
-            if snapshot.hasChild(USERNAME_DB_STRING) {
-                self.performSegue(withIdentifier: "goToFeedFromEmail", sender: nil)
-            } else {
-                print("username doesn't exist")
-                self.performSegue(withIdentifier: "createProfileFromEmail", sender: nil)
-            }
-        })
-    }
-    
+
     
     @IBAction func forgotPasswordBtnPressed(_ sender: Any) {
         emailField.resignFirstResponder()

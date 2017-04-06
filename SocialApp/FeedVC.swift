@@ -15,7 +15,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UINa
     @IBOutlet weak var tableView: UITableView!
     
     var posts = [Post]()
-
+    
     
     static var imageCache: NSCache<NSString, UIImage> = NSCache()
     
@@ -24,7 +24,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UINa
         
         tableView.delegate = self
         tableView.dataSource = self
-
+        
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(FeedVC.dismissKeyboard))
         view.addGestureRecognizer(tap)
         
@@ -43,12 +43,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UINa
             }
             self.tableView.reloadData()
         })
-        
-        
-        
     }
-    
-    
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -74,24 +69,18 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UINa
                 tableView.rowHeight = UIScreen.main.bounds.size.width + 170
                 cell.configureCell(post)
                 
-              //  tableView.rowHeight = cell.contentView.frame.height (cell.imageView?.frame.height)! +
+                //  tableView.rowHeight = cell.contentView.frame.height (cell.imageView?.frame.height)! +
             }
             return cell
         } else {
             return PostCell()
         }
-        
-        
     }
-    
-
-    
-    
     
     
     @IBAction func addImageTapped(_ sender: Any) {
-       performSegue(withIdentifier: "createPostSegue", sender: nil)
-      //  present(imagePicker, animated: true, completion: nil)
+        performSegue(withIdentifier: "createPostSegue", sender: nil)
+        //  present(imagePicker, animated: true, completion: nil)
     }
     
     
@@ -126,19 +115,16 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UINa
         alertController.addAction(okAction)
         self.present(alertController, animated: true, completion: nil)
         
-
+        
     }
     @IBAction func profileTapped(_ sender: Any) {
         self.performSegue(withIdentifier: "editProfile", sender: nil)
     }
     
     @IBAction func commentBtnTapped(_ sender: Any) {
-       // self.performSegue(withIdentifier: "viewComments", sender: Post)
+        // self.performSegue(withIdentifier: "viewComments", sender: Post)
     }
-    
 
-
-    
     
     //Calls this function when the tap is recognized.
     func dismissKeyboard() {
