@@ -20,7 +20,6 @@ func setupDefaultAlert(title: String, message: String, actionTitle: String, VC: 
 
 
 func completeSignIn(_ id: String, userData: Dictionary<String, String>, VC: UIViewController, usernameExistsSegue: String, userNameDNESegue: String) {
-    print("we made it!!!!!!")
     DataService.ds.createFirebaseDBUser(id, userData: userData)
     // Save Data to keychain
     let keychainResult = KeychainWrapper.setString(id, forKey: KEY_UID)

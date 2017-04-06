@@ -31,7 +31,7 @@ class SignInVC: UIViewController {
         facebookLogin.logIn(withReadPermissions: ["email"], from: self) { (result, error) in
             if error != nil {
                 print("CHASE: unable to authenticate with facebook - \(String(describing: error))")
-                
+                setupDefaultAlert(title: "", message: "Unable to authenticate with Facebook", actionTitle: "Ok", VC: self)
             } else if result?.isCancelled == true {
                 print("CHASE: user canceled")
             } else {
@@ -47,6 +47,28 @@ class SignInVC: UIViewController {
 
             if error != nil {
                 print("CHASE: Unable to auth with Firebase - \(String(describing: error))")
+                if let errCode = FIRAuthErrorCode(rawValue: error!._code) {
+                    switch errCode {
+
+                    case .errorCodeUserNotFound:
+                        setupDefaultAlert(title: "", message: " does not exist", actionTitle: "Ok", VC: self)
+                    case .errorCodeEmailAlreadyInUse:
+                        setupDefaultAlert(title: "", message: "An account was previously created with your Facebook's email address, please click the email button and sign in using your email address and password", actionTitle: "Ok", VC: self)
+                        print("in use")
+                    case .errorCodeTooManyRequests:
+                        setupDefaultAlert(title: "", message: "Too many requests", actionTitle: "Ok", VC: self)
+                        print("too many email attemps")
+                    case .errorCodeAppNotAuthorized:
+                        print("app not authorized")
+                    case .errorCodeNetworkError:
+                        print("network error")
+                        setupDefaultAlert(title: "", message: "Unable to connect to the internet!", actionTitle: "Ok", VC: self)
+                    default:
+                        print("Create User Error: \(error!)")
+                        
+                    }
+                }
+
                 
             } else {
                 print("CHASE: Succesffully authenticated with Firebase")

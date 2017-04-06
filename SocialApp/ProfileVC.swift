@@ -91,14 +91,17 @@ class ProfileVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerD
     
     @IBAction func saveTapped(_ sender: Any) {
         guard let name = nameTextField.text, name != "" else {
+            setupDefaultAlert(title: "", message: "Name must be entered", actionTitle: "Ok", VC: self)
             print("CHASE: Caption must be entered")
             return
         }
         guard let username = usernameTextField.text, username != "" else {
+            setupDefaultAlert(title: "", message: "Username must be entered", actionTitle: "Ok", VC: self)
             print("CHASE: Caption must be entered")
             return
         }
         guard let img = profileImg.image, imageSelected == true else {
+            setupDefaultAlert(title: "", message: "Click on the camera icon to select a profile picture", actionTitle: "Ok", VC: self)
             print("Chase an image has been selected")
             return
         }
